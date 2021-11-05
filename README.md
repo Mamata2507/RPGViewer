@@ -1,2 +1,2 @@
 # RPG Viewer
-Application to use for rolepaying.
+Application to use for roleplaying.
