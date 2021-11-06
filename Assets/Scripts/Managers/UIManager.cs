@@ -21,7 +21,10 @@ public class UIManager : MonoBehaviour
     {
         HandeWindow();
 
-        if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+        if (Input.GetKey(KeyCode.LeftAlt))
+        {
+            if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+        }
     }
 
     private void HandeWindow()
@@ -32,22 +35,27 @@ public class UIManager : MonoBehaviour
             switch (isWindowed)
             {
                 case true:
-                    {
-                        // Setting game to fullscreen, and restoring to full resolution
-                        isWindowed = false;
-                        Screen.fullScreen = true;
-                        Screen.SetResolution(fullResolution.width, fullResolution.height, true);
-                        break;
-                    }
+                {
+                    // Setting game to fullscreen, and restoring to full resolution
+                    isWindowed = false;
+                    Screen.fullScreen = true;
+                    Screen.SetResolution(fullResolution.width, fullResolution.height, true);
+                    break;
+                }
                 case false:
-                    {
-                        // Setting game to windowed mode, half of the resolution of fullscreen
-                        isWindowed = true;
-                        Screen.fullScreen = false;
-                        Screen.SetResolution(fullResolution.width / 2, fullResolution.height / 2, false);
-                        break;
-                    }
+                {
+                    // Setting game to windowed mode, half of the resolution of fullscreen
+                    isWindowed = true;
+                    Screen.fullScreen = false;
+                    Screen.SetResolution(fullResolution.width / 2, fullResolution.height / 2, false);
+                    break;
+                }
             }
         }
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
