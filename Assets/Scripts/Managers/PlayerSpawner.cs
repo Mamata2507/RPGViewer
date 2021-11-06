@@ -6,10 +6,12 @@ using Photon.Pun;
 public class PlayerSpawner : MonoBehaviour
 {
     public GameObject playerPrefab;
+    public GameObject obstaclePrefab;
 
     private void Start()
     {
         Vector2 randomPosition = new Vector2(Random.Range(0, 2), Random.Range(0, 2));
         PhotonNetwork.Instantiate(playerPrefab.name, randomPosition, Quaternion.identity);
+        PhotonNetwork.Instantiate(obstaclePrefab.name, randomPosition, Quaternion.identity);
     }
 }
