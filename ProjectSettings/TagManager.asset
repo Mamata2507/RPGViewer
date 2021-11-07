@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Character
+  - Map
   layers:
   - Default
   - TransparentFX
@@ -40,4 +42,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Environment
+    uniqueID: 2108834291
+    locked: 0
+  - name: Character
+    uniqueID: 1340459273
+    locked: 0
+  - name: UI
+    uniqueID: 60004829
+    locked: 0
+  - name: Top
+    uniqueID: 911530517
     locked: 0
