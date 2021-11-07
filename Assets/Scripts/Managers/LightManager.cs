@@ -7,15 +7,29 @@ public class LightManager : MonoBehaviour
 {
     public GameObject LightPrefab;
     private GameObject playerLight;
+    private PhotonView photonView;
+    private List<GameObject> lights = new List<GameObject>();
 
     private void Start()
     {
+        foreach (var light in GameObject.FindGameObjectsWithTag("Light"))
+        {
+            lights.Add(light);
+        }
+        photonView = GetComponent<PhotonView>();
         playerLight = PhotonNetwork.Instantiate(LightPrefab.name, transform.position, Quaternion.identity);
-        playerLight.transform.parent = this.transform;
     }
 
     private void Update()
     {
+        foreach (var item in lights)
+        {
+            if (photonView.IsMine == false)
+            {
+                item.SetActive(false);
+            }
+        }
+
         FollowTarget();
     }
 
