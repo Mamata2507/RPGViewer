@@ -1,41 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
+using UnityEngine.Experimental.Rendering.LWRP;
 
 public class LightManager : MonoBehaviourPunCallbacks
 {
-    public GameObject LightPrefab;
-    private GameObject instantiatedLight;
+    public GameObject lightPrefab;
+
     private PhotonView photonView;
+    private GameObject[] lights;
+
+    private UnityEngine.Experimental.Rendering.Universal.Light2D myLight;
 
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
-        instantiatedLight = PhotonNetwork.Instantiate(LightPrefab.name, transform.position, Quaternion.identity);
+        myLight = GetComponentInChildren<UnityEngine.Experimental.Rendering.Universal.Light2D>();
+
+        HideLights();
     }
 
     private void Update()
     {
-        if (photonView.IsMine)
-        {
-            FollowTarget();
+        if (Input.GetKeyDown(KeyCode.L) && photonView.IsMine) HideMyLight();
+    }
 
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                HandleLighting();
-            }
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        HideLights();
+    }
+
+    private void HideLights()
+    {
+        lights = GameObject.FindGameObjectsWithTag("Light");
+
+        foreach (var light in lights)
+        {
+            if (!light.GetComponent<PhotonView>().IsMine) light.SetActive(false);
         }
     }
 
-    private void FollowTarget()
+    public void HideMyLight()
     {
-        Vector3 desiredPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        instantiatedLight.transform.position = desiredPosition;
-    }
-
-    public void HandleLighting()
-    {
-        instantiatedLight.SetActive(!instantiatedLight.activeInHierarchy);
+        myLight.enabled = !myLight.enabled;
     }
 }

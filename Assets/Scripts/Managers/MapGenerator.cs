@@ -8,10 +8,23 @@ public class MapGenerator : MonoBehaviourPunCallbacks
     public GameObject playerPrefab;
     public GameObject mapPrefab;
 
+    private PhotonView photonView;
+
     private void Start()
     {
-        Vector2 randomPosition = new Vector2(Random.Range(0, 2), Random.Range(0, 2));
-        PhotonNetwork.Instantiate(playerPrefab.name, randomPosition, Quaternion.identity);
+        photonView = GetComponent<PhotonView>();
+
+        PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-4, 2), Quaternion.identity);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("GenerateMap", RpcTarget.AllBuffered);
+        }
+    }
+
+    [PunRPC]
+    private void GenerateMap()
+    {
         PhotonNetwork.Instantiate(mapPrefab.name, transform.position, Quaternion.identity);
     }
 }
