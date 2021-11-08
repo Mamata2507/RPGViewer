@@ -3,39 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class LightManager : MonoBehaviour
+public class LightManager : MonoBehaviourPunCallbacks
 {
     public GameObject LightPrefab;
-    private GameObject playerLight;
+    private GameObject instantiatedLight;
     private PhotonView photonView;
-    private List<GameObject> lights = new List<GameObject>();
 
     private void Start()
     {
-        foreach (var light in GameObject.FindGameObjectsWithTag("Light"))
-        {
-            lights.Add(light);
-        }
         photonView = GetComponent<PhotonView>();
-        playerLight = PhotonNetwork.Instantiate(LightPrefab.name, transform.position, Quaternion.identity);
+        instantiatedLight = PhotonNetwork.Instantiate(LightPrefab.name, transform.position, Quaternion.identity);
     }
 
     private void Update()
     {
-        foreach (var item in lights)
+        if (photonView.IsMine)
         {
-            if (photonView.IsMine == false)
+            FollowTarget();
+
+            if (Input.GetKeyDown(KeyCode.L))
             {
-                item.SetActive(false);
+                HandleLighting();
             }
         }
-
-        FollowTarget();
     }
 
     private void FollowTarget()
     {
         Vector3 desiredPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        playerLight.transform.position = desiredPosition;
+        instantiatedLight.transform.position = desiredPosition;
+    }
+
+    public void HandleLighting()
+    {
+        instantiatedLight.SetActive(!instantiatedLight.activeInHierarchy);
     }
 }

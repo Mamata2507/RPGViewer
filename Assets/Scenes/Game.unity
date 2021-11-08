@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 8704266109904137083, guid: 7ef31ebf63dc5644e843c5ae74ba9073, type: 3}
-  map: {fileID: 2800186904121091004, guid: fb60dec3051460a4882902950056cbc5, type: 3}
+  mapPrefab: {fileID: 2800186904121091004, guid: fb60dec3051460a4882902950056cbc5, type: 3}
 --- !u!1 &1433389190
 GameObject:
   m_ObjectHideFlags: 0

@@ -42,10 +42,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public IEnumerator Connect()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(3.0f);
-            PhotonNetwork.ConnectUsingSettings();
-        }
+        yield return new WaitForSeconds(3.0f);
+        PhotonNetwork.ConnectUsingSettings();
     }
 }
