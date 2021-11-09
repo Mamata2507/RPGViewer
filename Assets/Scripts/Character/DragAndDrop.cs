@@ -17,7 +17,6 @@ public class DragAndDrop : MonoBehaviour
     {
         view = GetComponent<PhotonView>();
         transformView = GetComponent<PhotonTransformView>();
-        grid = GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>();
     }
 
     public void OnMouseDown()
@@ -33,6 +32,7 @@ public class DragAndDrop : MonoBehaviour
 
     private void Update()
     {
+        if (GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>() != null && view.IsMine) grid = GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>();
         if (isDragging && view.IsMine) DragObject();
     }
 
