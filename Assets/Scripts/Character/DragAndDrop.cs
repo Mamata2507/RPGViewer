@@ -11,11 +11,13 @@ public class DragAndDrop : MonoBehaviour
 
     private PhotonView view;
     private PhotonTransformViewClassic transformViewClassic;
+    private Grid grid;
 
     private void Start()
     {
         view = GetComponent<PhotonView>();
         transformViewClassic = GetComponent<PhotonTransformViewClassic>();
+        grid = GameObject.FindObjectOfType<Grid>();
     }
 
     public void OnMouseDown()
@@ -46,7 +48,7 @@ public class DragAndDrop : MonoBehaviour
     {
         if (snapToGrid && view.IsMine)
         {
-            Vector2 gridPos = (new Vector3(Mathf.RoundToInt(transform.position.x / gridSize) * gridSize, Mathf.RoundToInt(transform.position.y / gridSize) * gridSize) - transform.position);
+            Vector2 gridPos = (new Vector3(Mathf.RoundToInt(transform.position.x / grid.gridSize) * gridSize, Mathf.RoundToInt(transform.position.y / grid.gridSize) * gridSize) - transform.position);
             transform.Translate(gridPos);
             if (transformViewClassic.m_PositionModel.SynchronizeEnabled == false) transformViewClassic.m_PositionModel.SynchronizeEnabled = true;
         }
