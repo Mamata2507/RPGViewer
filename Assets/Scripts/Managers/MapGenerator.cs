@@ -18,7 +18,7 @@ public class MapGenerator : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC("GenerateMap", RpcTarget.AllBuffered);
+            photonView.RPC("GenerateMap", RpcTarget.All);
         }
     }
 

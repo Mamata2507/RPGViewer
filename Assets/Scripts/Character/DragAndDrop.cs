@@ -10,14 +10,14 @@ public class DragAndDrop : MonoBehaviour
     private bool isDragging = false;
 
     private PhotonView view;
-    private PhotonTransformViewClassic transformViewClassic;
+    private PhotonTransformView transformView;
     private Grid grid;
 
     private void Start()
     {
         view = GetComponent<PhotonView>();
-        transformViewClassic = GetComponent<PhotonTransformViewClassic>();
-        grid = GameObject.FindObjectOfType<Grid>();
+        transformView = GetComponent<PhotonTransformView>();
+        grid = GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>();
     }
 
     public void OnMouseDown()
@@ -38,7 +38,7 @@ public class DragAndDrop : MonoBehaviour
 
     private void DragObject()
     {
-        if (transformViewClassic.m_PositionModel.SynchronizeEnabled == true) transformViewClassic.m_PositionModel.SynchronizeEnabled = false;
+        if (transformView.m_SynchronizePosition == true) transformView.m_SynchronizePosition = false;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         transform.Translate(mousePos);
@@ -48,9 +48,9 @@ public class DragAndDrop : MonoBehaviour
     {
         if (snapToGrid && view.IsMine)
         {
-            Vector2 gridPos = (new Vector3(Mathf.RoundToInt(transform.position.x / grid.gridSize) * gridSize, Mathf.RoundToInt(transform.position.y / grid.gridSize) * gridSize) - transform.position);
+            Vector3 gridPos = (new Vector3(Mathf.RoundToInt(transform.position.x / grid.gridSize) * gridSize, Mathf.RoundToInt(transform.position.y / grid.gridSize) * gridSize) - transform.position);
             transform.Translate(gridPos);
-            if (transformViewClassic.m_PositionModel.SynchronizeEnabled == false) transformViewClassic.m_PositionModel.SynchronizeEnabled = true;
+            if (transformView.m_SynchronizePosition == false) transformView.m_SynchronizePosition = true;
         }
     }
 }

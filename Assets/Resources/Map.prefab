@@ -122,7 +122,7 @@ MonoBehaviour:
   - {x: -10.255123, y: 13.230862, z: 0}
   m_ShapePathHash: 446888660
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46344
+  m_InstanceId: 41100
 --- !u!1 &2800186904121091004
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 2800186904121091005}
   - component: {fileID: 2800186904121090994}
   - component: {fileID: 2896298337429440785}
+  - component: {fileID: 8039041691561853701}
   m_Layer: 0
   m_Name: Map
   m_TagString: Map
@@ -230,6 +231,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &8039041691561853701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2800186904121091004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48aa51a0098186f45b45d29f2d0b0fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridSize: 0.5
 --- !u!1 &2800186904257652839
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,4 +304,4 @@ MonoBehaviour:
   - {x: -1.9134619, y: 1.8008136, z: 0}
   m_ShapePathHash: 2104818639
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46358
+  m_InstanceId: 41114
