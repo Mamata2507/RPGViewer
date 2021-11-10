@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    public float gridSize = 0.5f;
+    public float gridSize;
 
     private void OnDrawGizmos()
     {
         if (gridSize > 0)
         {
-            Gizmos.color = Color.black;
+            Gizmos.color = Color.yellow;
             
             for (float x = -20; x < 20; x += gridSize)
 		    {
                 for (float y = -20; y < 20; y += gridSize)
 		        {
-                    Gizmos.DrawWireCube(new Vector3(x, y), new Vector3(gridSize, gridSize));
+                    Gizmos.DrawWireSphere(new Vector3(x + transform.position.x, y + transform.position.y), 0.1f);
 		        }
 		    }
         }
