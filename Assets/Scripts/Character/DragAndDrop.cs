@@ -5,7 +5,6 @@ using Photon.Pun;
 
 public class DragAndDrop : MonoBehaviour
 {
-    private float gridSize = 0.5f;
     private bool snapToGrid = true;
     private bool isDragging = false;
 
@@ -48,8 +47,7 @@ public class DragAndDrop : MonoBehaviour
     {
         if (snapToGrid && view.IsMine)
         {
-            /*Vector3 gridPos = (new Vector3(Mathf.RoundToInt(transform.position.x / grid.gridSize) * gridSize, Mathf.RoundToInt(transform.position.y / grid.gridSize) * gridSize) - transform.position);
-            transform.Translate(gridPos);*/
+            transform.Translate(grid.GetClosestPosition(transform.position));
             if (transformView.m_SynchronizePosition == false) transformView.m_SynchronizePosition = true;
         }
     }
