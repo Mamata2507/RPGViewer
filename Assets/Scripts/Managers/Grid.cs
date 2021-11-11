@@ -5,18 +5,20 @@ using UnityEngine;
 public class Grid : MonoBehaviour
 {
     public float gridSize;
+    public float width;
+    public float height;
 
     private void OnDrawGizmos()
     {
-        if (gridSize > 0)
+        if (width > 0 && height > 0)
         {
-            Gizmos.color = Color.yellow;
+            Gizmos.color = Color.red;
             
-            for (float x = -20; x < 20; x += gridSize)
+            for (float x = 0; x < width; x ++)
 		    {
-                for (float y = -20; y < 20; y += gridSize)
+                for (float y = 0; y < height; y ++)
 		        {
-                    Gizmos.DrawWireSphere(new Vector3(x + transform.position.x, y + transform.position.y), 0.1f);
+                    Gizmos.DrawWireCube(new Vector3(x + transform.position.x, y + transform.position.y), new Vector2(gridSize, gridSize));
 		        }
 		    }
         }

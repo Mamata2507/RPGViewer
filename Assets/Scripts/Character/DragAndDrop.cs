@@ -48,8 +48,8 @@ public class DragAndDrop : MonoBehaviour
     {
         if (snapToGrid && view.IsMine)
         {
-            Vector3 gridPos = (new Vector3(Mathf.RoundToInt(transform.position.x / grid.gridSize) * gridSize, Mathf.RoundToInt(transform.position.y / grid.gridSize) * gridSize) - transform.position);
-            transform.Translate(gridPos);
+            /*Vector3 gridPos = (new Vector3(Mathf.RoundToInt(transform.position.x / grid.gridSize) * gridSize, Mathf.RoundToInt(transform.position.y / grid.gridSize) * gridSize) - transform.position);
+            transform.Translate(gridPos);*/
             if (transformView.m_SynchronizePosition == false) transformView.m_SynchronizePosition = true;
         }
     }
