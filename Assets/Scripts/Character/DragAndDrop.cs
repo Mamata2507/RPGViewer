@@ -47,7 +47,8 @@ public class DragAndDrop : MonoBehaviour
     {
         if (snapToGrid && view.IsMine)
         {
-            transform.Translate(grid.GetClosestPosition(transform.position));
+            transform.position = (grid.GetClosestPosition(transform.position));
+
             if (transformView.m_SynchronizePosition == false) transformView.m_SynchronizePosition = true;
         }
     }

@@ -48,6 +48,7 @@ MonoBehaviour:
   topCorner: {fileID: 8937194387189012820}
   bottomCorner: {fileID: 671896630858639530}
   gridSize: {x: 42, y: 27}
+  returnPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &671896630858639530
 GameObject:
   m_ObjectHideFlags: 0
