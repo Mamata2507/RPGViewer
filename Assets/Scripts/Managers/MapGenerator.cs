@@ -14,7 +14,7 @@ public class MapGenerator : MonoBehaviourPunCallbacks
     {
         photonView = GetComponent<PhotonView>();
 
-        PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(-4, 2), Quaternion.identity);
+        PhotonNetwork.Instantiate("Characters/" + playerPrefab.name, new Vector2(-4, 2), Quaternion.identity);
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -25,6 +25,6 @@ public class MapGenerator : MonoBehaviourPunCallbacks
     [PunRPC]
     private void GenerateMap()
     {
-        PhotonNetwork.Instantiate(mapPrefab.name, transform.position, Quaternion.identity);
+        PhotonNetwork.Instantiate("Maps/" + mapPrefab.name, transform.position, Quaternion.identity);
     }
 }

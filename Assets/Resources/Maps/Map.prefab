@@ -48,7 +48,6 @@ MonoBehaviour:
   topCorner: {fileID: 8937194387189012820}
   bottomCorner: {fileID: 671896630858639530}
   gridSize: {x: 42, y: 27}
-  returnPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &671896630858639530
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d67b439681a1d4c9d33aaf02c885f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  topCorner: {fileID: 8937194387189012820}
+  bottomCorner: {fileID: 671896630858639530}
 --- !u!1 &2800186904121091004
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,3 +242,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d67b439681a1d4c9d33aaf02c885f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  topCorner: {fileID: 8937194387189012820}
+  bottomCorner: {fileID: 671896630858639530}

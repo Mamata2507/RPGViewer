@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    public GameObject topCorner;
-    public GameObject bottomCorner;
+    [Header("Grid Settings")]
+    [SerializeField] private GameObject topCorner;
+    [SerializeField] private GameObject bottomCorner;
     public Vector2 gridSize;
 
-    public Vector3 returnPosition;
+    private Vector3 returnPosition;
     private float distanceToPlayer;
 
     private float width;
@@ -31,6 +32,13 @@ public class Grid : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+
+        width = topCorner.transform.position.x - bottomCorner.transform.position.x;
+        height = topCorner.transform.position.y - bottomCorner.transform.position.y;
+
+        rows = width / gridSize.x;
+        columns = height / gridSize.y;
+
         if (gridSize.x > 0 && gridSize.y > 0)
         {
             Gizmos.color = Color.red;

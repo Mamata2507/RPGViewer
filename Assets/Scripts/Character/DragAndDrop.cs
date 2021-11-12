@@ -3,53 +3,65 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class DragAndDrop : MonoBehaviour
+public class DragAndDrop : MonoBehaviourPun
 {
     private bool snapToGrid = true;
     private bool isDragging = false;
 
-    private PhotonView view;
-    private PhotonTransformView transformView;
+    private PhotonView photonView;
+    private Photon.Realtime.Player originalOwner;
+    private PhotonTransformViewClassic transformView;
+    
     private Grid grid;
 
     private void Start()
     {
-        view = GetComponent<PhotonView>();
-        transformView = GetComponent<PhotonTransformView>();
+        photonView = GetComponent<PhotonView>();
+        transformView = GetComponent<PhotonTransformViewClassic>();
+        originalOwner = photonView.Owner;
     }
 
     public void OnMouseDown()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RequestOwnership();
+        }
         isDragging = true;
     }
 
     public void OnMouseUp()
     {
         isDragging = false;
-        SnapToGrid();
+        StartCoroutine(SnapToGrid());
     }
 
     private void Update()
     {
-        if (GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>() != null && view.IsMine) grid = GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>();
-        if (isDragging && view.IsMine) DragObject();
+        if (GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>() != null && photonView.IsMine) grid = GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>();
+        if (isDragging && photonView.IsMine) DragObject();
     }
 
     private void DragObject()
     {
-        if (transformView.m_SynchronizePosition == true) transformView.m_SynchronizePosition = false;
+        transformView.m_PositionModel.SynchronizeEnabled = false;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         transform.Translate(mousePos);
     }
 
-    private void SnapToGrid()
+    private IEnumerator SnapToGrid()
     {
-        if (snapToGrid && view.IsMine)
+        if (snapToGrid && photonView.IsMine)
         {
-            transform.position = (grid.GetClosestPosition(transform.position));
+            transform.Translate(grid.GetClosestPosition(transform.position) - transform.position);
+            yield return new WaitForSeconds(1.0f);
 
-            if (transformView.m_SynchronizePosition == false) transformView.m_SynchronizePosition = true;
+            if (PhotonNetwork.IsMasterClient && originalOwner != PhotonNetwork.MasterClient)
+            {
+                photonView.TransferOwnership(originalOwner);
+            }
+            transformView.m_PositionModel.SynchronizeEnabled = true;
         }
     }
 }
