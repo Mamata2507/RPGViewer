@@ -9,7 +9,7 @@ public class DragAndDrop : MonoBehaviourPun
     private bool isDragging = false;
 
     private PhotonView photonView;
-    private Photon.Realtime.Player originalOwner;
+    private Photon.Realtime.Player lastOwner;
     private PhotonTransformViewClassic transformView;
     
     private Grid grid;
@@ -18,14 +18,16 @@ public class DragAndDrop : MonoBehaviourPun
     {
         photonView = GetComponent<PhotonView>();
         transformView = GetComponent<PhotonTransformViewClassic>();
-        originalOwner = photonView.Owner;
+        lastOwner = photonView.Owner;
     }
 
     public void OnMouseDown()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient || lastOwner != photonView.Owner)
         {
+            lastOwner = photonView.Owner;
             photonView.RequestOwnership();
+            
         }
         isDragging = true;
     }
@@ -33,7 +35,7 @@ public class DragAndDrop : MonoBehaviourPun
     public void OnMouseUp()
     {
         isDragging = false;
-        StartCoroutine(SnapToGrid());
+        SnapToGrid();
     }
 
     private void Update()
@@ -44,24 +46,19 @@ public class DragAndDrop : MonoBehaviourPun
 
     private void DragObject()
     {
-        transformView.m_PositionModel.SynchronizeEnabled = false;
+        //transformView.m_PositionModel.SynchronizeEnabled = false;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         transform.Translate(mousePos);
     }
 
-    private IEnumerator SnapToGrid()
+    private void SnapToGrid()
     {
         if (snapToGrid && photonView.IsMine)
         {
             transform.Translate(grid.GetClosestPosition(transform.position) - transform.position);
-            yield return new WaitForSeconds(1.0f);
-
-            if (PhotonNetwork.IsMasterClient && originalOwner != PhotonNetwork.MasterClient)
-            {
-                photonView.TransferOwnership(originalOwner);
-            }
-            transformView.m_PositionModel.SynchronizeEnabled = true;
+            //transformView.m_PositionModel.SynchronizeEnabled = true;
+            
         }
     }
 }
