@@ -17,19 +17,23 @@ public class LoadIcons : MonoBehaviour
     }
 
     private void DisplayIcons()
-    {
-        float offset = 0f;
-        
+    {        
         RectTransform rt = GetComponent<RectTransform>();
-        foreach (var icon in icons) rt.sizeDelta = new Vector2(rt.sizeDelta.x, rt.sizeDelta.y + 90);
+        
+        for (int i = 0; i < icons.Length; i++)
+        {
+            rt.sizeDelta = new Vector2(rt.sizeDelta.x, rt.sizeDelta.y + 90);
+        }
+
         rt.sizeDelta = new Vector2(rt.sizeDelta.x, rt.sizeDelta.y - 25);
 
-        foreach (var icon in icons)
+        for (int i = 0; i < icons.Length; i++)
         {
-            GameObject instantiatedIcon = Instantiate(iconTemplate, new Vector3(transform.position.x, transform.position.y + offset), Quaternion.identity, this.transform);
-            instantiatedIcon.GetComponent<Image>().sprite = icon.GetComponent<SpriteRenderer>().sprite;
-            instantiatedIcon.GetComponent<DragAndInstantiate>().iconPrefab = icon;
-            offset -= 50f;
+            GameObject instantiatedIcon = Instantiate(iconTemplate, this.transform);
+            instantiatedIcon.transform.localPosition = (new Vector3(0, transform.position.y - 75 * i - 50));
+            instantiatedIcon.GetComponent<Image>().sprite = icons[i].GetComponent<SpriteRenderer>().sprite;
+            instantiatedIcon.GetComponent<DragAndInstantiate>().iconPrefab = icons[i];
         }
+
     }
 }

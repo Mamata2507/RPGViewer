@@ -5,8 +5,6 @@ using UnityEngine.Experimental.Rendering.LWRP;
 
 public class LightManager : MonoBehaviourPunCallbacks
 {
-    public GameObject lightPrefab;
-
     private PhotonView photonView;
     private GameObject[] lights;
 

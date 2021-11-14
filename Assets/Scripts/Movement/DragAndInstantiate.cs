@@ -7,8 +7,8 @@ using Photon.Pun;
 public class DragAndInstantiate : MonoBehaviour
 {
     public GameObject iconPrefab;
+    private GameObject icon;
 
-    private GameObject tempIcon;
     private bool isDragging = false;
     private bool canDrag = false;
 
@@ -24,24 +24,22 @@ public class DragAndInstantiate : MonoBehaviour
 
     private void InstantiateIcon()
     {
-        Destroy(tempIcon);
-        GameObject icon = PhotonNetwork.Instantiate("Prefabs/Icons/" + iconPrefab.name, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
-        icon.transform.position = new Vector3(icon.transform.position.x, icon.transform.position.y, 0);
+        icon = PhotonNetwork.Instantiate("Prefabs/Icons/" + iconPrefab.name, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && canDrag)
         {
-            Debug.Log("runs");
-            tempIcon = Instantiate(iconPrefab);
+            InstantiateIcon();
             isDragging = true;
         }
 
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             isDragging = false;
-            InstantiateIcon();
+            icon.GetComponent<DragAndDrop>().SnapToGrid();
+            
         }
         if (isDragging) DragObject();
     }
@@ -49,6 +47,6 @@ public class DragAndInstantiate : MonoBehaviour
     private void DragObject()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        tempIcon.transform.position = mousePos;
+        icon.transform.position = mousePos;
     }
 }
