@@ -46,18 +46,18 @@ public class DragAndDrop : MonoBehaviourPun
 
     private void DragObject()
     {
-        //transformView.m_PositionModel.SynchronizeEnabled = false;
+        transformView.m_PositionModel.SynchronizeEnabled = false;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         transform.Translate(mousePos);
     }
 
-    private void SnapToGrid()
+    public void SnapToGrid()
     {
         if (snapToGrid && photonView.IsMine)
         {
             transform.Translate(grid.GetClosestPosition(transform.position) - transform.position);
-            //transformView.m_PositionModel.SynchronizeEnabled = true;
+            transformView.m_PositionModel.SynchronizeEnabled = true;
             
         }
     }
