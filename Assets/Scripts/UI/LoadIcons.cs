@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,20 +10,21 @@ public class LoadIcons : MonoBehaviour
     private void Start()
     {
         icons = Resources.LoadAll<GameObject>("Prefabs/Icons");
+        ScaleRect();
         DisplayIcons();
     }
 
-    private void DisplayIcons()
-    {        
+    private void ScaleRect()
+    {
         RectTransform rt = GetComponent<RectTransform>();
-        
-        for (int i = 0; i < icons.Length; i++)
-        {
-            rt.sizeDelta = new Vector2(rt.sizeDelta.x, rt.sizeDelta.y + 90);
-        }
+
+        for (int i = 0; i < icons.Length; i++) rt.sizeDelta = new Vector2(rt.sizeDelta.x, rt.sizeDelta.y + 90);
 
         rt.sizeDelta = new Vector2(rt.sizeDelta.x, rt.sizeDelta.y - 25);
+    }
 
+    private void DisplayIcons()
+    {
         for (int i = 0; i < icons.Length; i++)
         {
             GameObject instantiatedIcon = Instantiate(iconTemplate, this.transform);
@@ -34,6 +32,5 @@ public class LoadIcons : MonoBehaviour
             instantiatedIcon.GetComponent<Image>().sprite = icons[i].GetComponent<SpriteRenderer>().sprite;
             instantiatedIcon.GetComponent<DragAndInstantiate>().iconPrefab = icons[i];
         }
-
     }
 }
