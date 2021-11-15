@@ -7,54 +7,53 @@ public class CameraController : MonoBehaviour
 {
     // Camera zoom
     [SerializeField] private float zoomSpeed;
-    [SerializeField] private float smoothSpeed;
     [SerializeField] private float minZoom;
     [SerializeField] private float maxZoom;
-    private float cameraZoom;
+    public bool canZoom = true;
 
     // Camera movement
-    private float distance;
     private Vector3 startPosition;
     public bool canDrag = true;
 
-    void Start()
-    {
-        distance = transform.position.z;
-        cameraZoom = Camera.main.orthographicSize;
-    }
-
     void Update()
     {
-        HandleZoom();
-        HandleMovement();
+        if (canZoom) HandleZoom(Input.GetAxis("Mouse ScrollWheel"));
+        if (canDrag) HandleMovement();
     }
 
-    private void HandleZoom()
+    private void HandleZoom(float increment)
     {
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll != 0.0f)
+        if (increment != 0.0f)
         {
-            cameraZoom -= scroll * zoomSpeed;
-            cameraZoom = Mathf.Clamp(cameraZoom, minZoom, maxZoom);
+            Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - increment * zoomSpeed, minZoom, maxZoom);
         }
-
-        Camera.main.orthographicSize = Mathf.MoveTowards(Camera.main.orthographicSize, cameraZoom, smoothSpeed * Time.deltaTime);
     }
 
     private void HandleMovement()
     {
-        if (Input.GetMouseButtonDown(0) && canDrag)
+        if (Input.GetMouseButtonDown(0))
         {
-            startPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
-            startPosition = Camera.main.ScreenToWorldPoint(startPosition);
-            startPosition.z = transform.position.z;
+            startPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
-        else if (Input.GetMouseButton(0) && canDrag)
+        if (canZoom && Input.touchCount == 2)
         {
-            var MouseMove = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
-            MouseMove = Camera.main.ScreenToWorldPoint(MouseMove);
-            MouseMove.z = transform.position.z;
-            transform.position = transform.position - (MouseMove - startPosition);
+            Touch touchZero = Input.GetTouch(0);
+            Touch touchOne = Input.GetTouch(1);
+
+            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+            Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+
+            float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
+
+            float difference = currentMagnitude - prevMagnitude;
+
+            HandleZoom(difference * 0.002f);
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            Vector3 direction = startPosition - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Camera.main.transform.position += direction;
         }
     }
 }

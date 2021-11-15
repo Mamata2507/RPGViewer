@@ -38,7 +38,6 @@ public class DragAndDrop : MonoBehaviourPun
 
     public void OnMouseUp()
     {
-        camera.GetComponent<CameraController>().canDrag = true;
         isDragging = false;
         SnapToGrid();
     }
@@ -63,7 +62,7 @@ public class DragAndDrop : MonoBehaviourPun
         {
             transform.Translate(grid.GetClosestPosition(transform.position) - transform.position);
             transformView.m_PositionModel.SynchronizeEnabled = true;
-            
         }
+        camera.GetComponent<CameraController>().canDrag = true;
     }
 }

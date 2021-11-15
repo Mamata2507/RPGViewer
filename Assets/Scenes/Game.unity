@@ -543,6 +543,7 @@ GameObject:
   - component: {fileID: 2098120564}
   - component: {fileID: 2098120562}
   - component: {fileID: 2098120566}
+  - component: {fileID: 2098120563}
   m_Layer: 5
   m_Name: Icon Sidebar
   m_TagString: Untagged
@@ -583,6 +584,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!61 &2098120563
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098120560}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 83, y: 805}
+  m_EdgeRadius: 0
 --- !u!114 &2098120564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,27 +733,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 805448970591572779, guid: 98ce121809ff48745b1fd1ba40c2f0bc, type: 3}
+      propertyPath: zoomSpeed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98ce121809ff48745b1fd1ba40c2f0bc, type: 3}
---- !u!1 &805448970591572778 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 805448969869024175, guid: 98ce121809ff48745b1fd1ba40c2f0bc, type: 3}
-  m_PrefabInstance: {fileID: 805448970591572777}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &805448970591572779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805448970591572778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c669ad45084bff4b90e80bb0403bb52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zoomSpeed: 5
-  smoothSpeed: 10
-  minZoom: 1
-  maxZoom: 20
-  canDrag: 1
