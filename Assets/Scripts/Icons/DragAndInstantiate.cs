@@ -8,35 +8,26 @@ public class DragAndInstantiate : MonoBehaviour
 {
     public GameObject iconPrefab;
     private GameObject icon;
-    private Camera camera;
 
     private bool isDragging = false;
     private bool canDrag = false;
 
     private void OnMouseOver()
     {
-        camera.GetComponent<CameraController>().canDrag = false;
-        camera.GetComponent<CameraController>().canZoom = false;
         canDrag = true;
     }
 
     private void OnMouseExit()
     {
-        camera.GetComponent<CameraController>().canZoom = false;
-        if (!isDragging) camera.GetComponent<CameraController>().canDrag = true;
         canDrag = false;
-    }
-
-    private void Start()
-    {
-        camera = Camera.main;
     }
 
     private void Update()
     {
+        Camera.main.GetComponent<CameraController>().canDrag = !isDragging;
+
         if (Input.GetMouseButtonDown(0) && canDrag)
         {
-            
             InstantiateIcon();
             isDragging = true;
         }

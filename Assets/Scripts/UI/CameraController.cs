@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
     // Camera movement
     private Vector3 startPosition;
     public bool canDrag = true;
+    private bool zooming;
 
     void Update()
     {
@@ -31,12 +32,13 @@ public class CameraController : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !zooming)
         {
             startPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
         if (canZoom && Input.touchCount == 2)
         {
+            zooming = true;
             Touch touchZero = Input.GetTouch(0);
             Touch touchOne = Input.GetTouch(1);
 
@@ -52,6 +54,7 @@ public class CameraController : MonoBehaviour
         }
         else if (Input.GetMouseButton(0))
         {
+            zooming = false;
             Vector3 direction = startPosition - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Camera.main.transform.position += direction;
         }
