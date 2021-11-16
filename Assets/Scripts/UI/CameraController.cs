@@ -16,6 +16,8 @@ public class CameraController : MonoBehaviour
     public bool canDrag = true;
     private bool zoomingWithMobile;
 
+    private CanvasManager[] abilities;
+
     void Update()
     {
         CheckAbilities();
@@ -25,18 +27,18 @@ public class CameraController : MonoBehaviour
 
     private void CheckAbilities()
     {
-        CanvasManager[] abilities = FindObjectsOfType<CanvasManager>();
+        abilities = FindObjectsOfType<CanvasManager>();
 
         canDrag = true;
         canZoom = true;
 
         foreach (var ability in abilities)
         {
-            if (ability.preventingDrag == false)
+            if (ability.preventingDrag == true)
             {
                 canDrag = false;
             }
-            if (ability.preventingZoom == false)
+            if (ability.preventingZoom == true)
             {
                 canZoom = false;
             }

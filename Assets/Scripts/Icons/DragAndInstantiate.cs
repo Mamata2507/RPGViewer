@@ -9,8 +9,8 @@ public class DragAndInstantiate : MonoBehaviour
     public GameObject iconPrefab;
     private GameObject icon;
 
-    private bool isDragging = false;
-    private bool canDrag = false;
+    public bool isDragging = false;
+    private bool canDrag;
 
     private void OnMouseOver()
     {
@@ -33,7 +33,6 @@ public class DragAndInstantiate : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             isDragging = false;
-            icon.GetComponent<DragAndDrop>().SnapToGrid();
         }
         if (isDragging) DragObject();
     }

@@ -7,18 +7,55 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private bool preventZoom;
     [SerializeField] private bool preventDrag;
 
-    [HideInInspector] public bool preventingZoom;
-    [HideInInspector] public bool preventingDrag;
+    public bool preventingZoom;
+    public bool preventingDrag;
 
     private void OnMouseOver()
     {
-        if (preventZoom) preventingZoom = false;
-        if (preventDrag) preventingDrag = false;
+        if (GetComponent<DragAndDrop>() != null)
+        {
+            if (GetComponent<DragAndDrop>().isDragging)
+            {
+                if (preventZoom) preventingZoom = true;
+                if (preventDrag) preventingDrag = true;
+            }
+        }
+        else if (GetComponent<DragAndInstantiate>() != null)
+        {
+            if (GetComponent<DragAndInstantiate>().isDragging)
+            {
+                if (preventZoom) preventingZoom = true;
+                if (preventDrag) preventingDrag = true;
+            }
+        }
+        else
+        {
+            if (preventZoom) preventingZoom = true;
+            if (preventDrag) preventingDrag = true;
+        }
     }
 
     private void OnMouseExit()
     {
-        if (preventZoom) preventingZoom = true;
-        if (preventDrag) preventingDrag = true;
+        if (GetComponent<DragAndDrop>() != null)
+        {
+            if (!GetComponent<DragAndDrop>().isDragging)
+            {
+                if (preventZoom) preventingZoom = false;
+                if (preventDrag) preventingDrag = false;
+            }
+        }
+        else if (GetComponent<DragAndInstantiate>() != null)
+        {
+            if (preventZoom) preventingZoom = false;
+            if (preventDrag) preventingDrag = false;
+        }
+        else
+        {
+            if (preventZoom) preventingZoom = false;
+            if (preventDrag) preventingDrag = false;
+        }
+        
+        
     }
 }

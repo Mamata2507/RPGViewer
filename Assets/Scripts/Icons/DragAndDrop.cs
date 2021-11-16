@@ -6,7 +6,7 @@ using Photon.Pun;
 public class DragAndDrop : MonoBehaviourPun
 {
     private bool snapToGrid = true;
-    private bool isDragging = false;
+    public bool isDragging = false;
 
     private PhotonView photonView;
     private Photon.Realtime.Player lastOwner;
@@ -28,7 +28,6 @@ public class DragAndDrop : MonoBehaviourPun
 
     public void OnMouseUp()
     {
-        isDragging = false;
         SnapToGrid();
     }
 
@@ -55,6 +54,8 @@ public class DragAndDrop : MonoBehaviourPun
 
     public void SnapToGrid()
     {
+        isDragging = false;
+
         if (snapToGrid && photonView.IsMine)
         {
             transform.Translate(grid.GetClosestPosition(transform.position) - transform.position);
