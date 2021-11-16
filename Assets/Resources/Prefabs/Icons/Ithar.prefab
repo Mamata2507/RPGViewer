@@ -631,6 +631,7 @@ GameObject:
   - component: {fileID: 8704266109904137056}
   - component: {fileID: 143709542340168006}
   - component: {fileID: 6304351033723693047}
+  - component: {fileID: -8812361778201190452}
   m_Layer: 0
   m_Name: Ithar
   m_TagString: Character
@@ -801,6 +802,22 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &-8812361778201190452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8704266109904137083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb0c33cd7e36da40bb2a69fa5298393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preventZoom: 0
+  preventDrag: 1
+  preventingZoom: 0
+  preventingDrag: 0
 --- !u!1001 &4774725058392192777
 PrefabInstance:
   m_ObjectHideFlags: 0

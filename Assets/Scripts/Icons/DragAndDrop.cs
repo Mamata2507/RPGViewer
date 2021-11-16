@@ -12,20 +12,10 @@ public class DragAndDrop : MonoBehaviourPun
     private Photon.Realtime.Player lastOwner;
     private PhotonTransformViewClassic transformView;
     
-    private Camera camera;
     private Grid grid;
-
-    private void Start()
-    {
-        camera = Camera.main;
-        photonView = GetComponent<PhotonView>();
-        transformView = GetComponent<PhotonTransformViewClassic>();
-        lastOwner = photonView.Owner;
-    }
 
     public void OnMouseDown()
     {
-        camera.GetComponent<CameraController>().canDrag = false;
         isDragging = true;
         
         if (PhotonNetwork.IsMasterClient || lastOwner != photonView.Owner)
@@ -40,6 +30,13 @@ public class DragAndDrop : MonoBehaviourPun
     {
         isDragging = false;
         SnapToGrid();
+    }
+
+    private void Start()
+    {
+        photonView = GetComponent<PhotonView>();
+        transformView = GetComponent<PhotonTransformViewClassic>();
+        lastOwner = photonView.Owner;
     }
 
     private void Update()
@@ -63,6 +60,5 @@ public class DragAndDrop : MonoBehaviourPun
             transform.Translate(grid.GetClosestPosition(transform.position) - transform.position);
             transformView.m_PositionModel.SynchronizeEnabled = true;
         }
-        camera.GetComponent<CameraController>().canDrag = true;
     }
 }

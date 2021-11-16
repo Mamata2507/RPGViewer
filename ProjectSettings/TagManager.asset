@@ -9,6 +9,7 @@ TagManager:
   - Light
   - Top Corner
   - Bottom Corner
+  - CameraHandler
   layers:
   - Default
   - TransparentFX

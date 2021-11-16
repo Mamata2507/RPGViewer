@@ -4,25 +4,21 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-    private Camera camera;
-
     [SerializeField] private bool preventZoom;
     [SerializeField] private bool preventDrag;
 
+    [HideInInspector] public bool preventingZoom;
+    [HideInInspector] public bool preventingDrag;
+
     private void OnMouseOver()
     {
-        if (preventZoom) camera.GetComponent<CameraController>().canZoom = false;
-        if (preventDrag) camera.GetComponent<CameraController>().canDrag = false;
+        if (preventZoom) preventingZoom = false;
+        if (preventDrag) preventingDrag = false;
     }
 
     private void OnMouseExit()
     {
-        if (preventZoom) camera.GetComponent<CameraController>().canZoom = true;
-        if (preventDrag) camera.GetComponent<CameraController>().canDrag = true;
-    }
-
-    private void Start()
-    {
-        camera = Camera.main;
+        if (preventZoom) preventingZoom = true;
+        if (preventDrag) preventingDrag = true;
     }
 }

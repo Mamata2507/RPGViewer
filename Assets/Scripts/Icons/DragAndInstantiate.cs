@@ -24,8 +24,6 @@ public class DragAndInstantiate : MonoBehaviour
 
     private void Update()
     {
-        Camera.main.GetComponent<CameraController>().canDrag = !isDragging;
-
         if (Input.GetMouseButtonDown(0) && canDrag)
         {
             InstantiateIcon();

@@ -14,12 +14,33 @@ public class CameraController : MonoBehaviour
     // Camera movement
     private Vector3 startPosition;
     public bool canDrag = true;
-    private bool zooming;
+    private bool zoomingWithMobile;
 
     void Update()
     {
+        CheckAbilities();
         if (canZoom) HandleZoom(Input.GetAxis("Mouse ScrollWheel"));
         if (canDrag) HandleMovement();
+    }
+
+    private void CheckAbilities()
+    {
+        CanvasManager[] abilities = FindObjectsOfType<CanvasManager>();
+
+        canDrag = true;
+        canZoom = true;
+
+        foreach (var ability in abilities)
+        {
+            if (ability.preventingDrag == false)
+            {
+                canDrag = false;
+            }
+            if (ability.preventingZoom == false)
+            {
+                canZoom = false;
+            }
+        }
     }
 
     private void HandleZoom(float increment)
@@ -32,13 +53,14 @@ public class CameraController : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (Input.GetMouseButtonDown(0) && !zooming)
+        if (Input.GetMouseButtonDown(0) && !zoomingWithMobile)
         {
             startPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            startPosition = new Vector3(startPosition.x, startPosition.y, -10f);
         }
         if (canZoom && Input.touchCount == 2)
         {
-            zooming = true;
+            zoomingWithMobile = true;
             Touch touchZero = Input.GetTouch(0);
             Touch touchOne = Input.GetTouch(1);
 
@@ -54,9 +76,13 @@ public class CameraController : MonoBehaviour
         }
         else if (Input.GetMouseButton(0))
         {
-            zooming = false;
             Vector3 direction = startPosition - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Camera.main.transform.position += direction;
+            Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, -10f);
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            zoomingWithMobile = false;
         }
     }
 }
