@@ -734,6 +734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31419e9b2ba64d14dbc400d0dac34a4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDragging: 0
 --- !u!114 &8704266109904137056
 MonoBehaviour:
   m_ObjectHideFlags: 0

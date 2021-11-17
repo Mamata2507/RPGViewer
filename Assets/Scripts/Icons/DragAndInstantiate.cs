@@ -32,6 +32,9 @@ public class DragAndInstantiate : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
+            GetComponent<CanvasManager>().preventingDrag = false;
+            GetComponent<CanvasManager>().preventingZoom = false;
+            icon.GetComponent<DragAndDrop>().SnapToGrid();
             isDragging = false;
         }
         if (isDragging) DragObject();

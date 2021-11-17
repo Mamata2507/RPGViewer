@@ -47,8 +47,11 @@ public class CanvasManager : MonoBehaviour
         }
         else if (GetComponent<DragAndInstantiate>() != null)
         {
-            if (preventZoom) preventingZoom = false;
-            if (preventDrag) preventingDrag = false;
+            if (!GetComponent<DragAndInstantiate>().isDragging)
+            {
+                if (preventZoom) preventingZoom = false;
+                if (preventDrag) preventingDrag = false;
+            }   
         }
         else
         {

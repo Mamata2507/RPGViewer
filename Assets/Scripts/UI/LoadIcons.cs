@@ -28,7 +28,7 @@ public class LoadIcons : MonoBehaviour
         for (int i = 0; i < icons.Length; i++)
         {
             GameObject instantiatedIcon = Instantiate(iconTemplate, this.transform);
-            instantiatedIcon.transform.localPosition = (new Vector3(0, transform.position.y - 75 * i - 50));
+            instantiatedIcon.transform.localPosition = (new Vector3(0, transform.position.y - 75 * i - 50, -15));
             instantiatedIcon.GetComponent<Image>().sprite = icons[i].GetComponent<SpriteRenderer>().sprite;
             instantiatedIcon.GetComponent<DragAndInstantiate>().iconPrefab = icons[i];
         }

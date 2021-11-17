@@ -692,7 +692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preventZoom: 1
-  preventDrag: 1
+  preventDrag: 0
   preventingZoom: 0
   preventingDrag: 0
 --- !u!1001 &805448970591572777
