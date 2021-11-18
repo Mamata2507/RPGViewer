@@ -1,12 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.Collections;
 
 public class DragAndDrop : MonoBehaviourPun
 {
     private bool snapToGrid = true;
     public bool isDragging = false;
+    
+    public GameObject infoBox;
+    private Vector3 startPos;
+    private Vector3 endPos;
 
     private PhotonView photonView;
     private Photon.Realtime.Player lastOwner;
@@ -14,21 +17,30 @@ public class DragAndDrop : MonoBehaviourPun
     
     private Grid grid;
 
-    public void OnMouseDown()
+    private void OnMouseDown()
     {
-        isDragging = true;
-        
         if (PhotonNetwork.IsMasterClient || lastOwner != photonView.Owner)
         {
             lastOwner = photonView.Owner;
             photonView.RequestOwnership();
         }
-        
+        startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        StartCoroutine(CheckDragging());
     }
 
     public void OnMouseUp()
     {
-        SnapToGrid();
+        StopAllCoroutines();
+        if (isDragging) SnapToGrid();
+
+        if (Vector3.Distance(startPos, endPos) >= 0.1f)
+        {
+            isDragging = true;
+        }
+        else
+        {
+            infoBox.SetActive(!infoBox.activeInHierarchy);
+        }
     }
 
     private void Start()
@@ -42,6 +54,16 @@ public class DragAndDrop : MonoBehaviourPun
     {
         if (GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>() != null && photonView.IsMine) grid = GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>();
         if (isDragging && photonView.IsMine) DragObject();
+    }
+
+    private IEnumerator CheckDragging()
+    {
+        while (true)
+        {
+            endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            yield return new WaitForSeconds(0.01f);
+        }
+        
     }
 
     private void DragObject()

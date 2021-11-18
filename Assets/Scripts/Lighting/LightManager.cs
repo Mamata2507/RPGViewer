@@ -18,11 +18,6 @@ public class LightManager : MonoBehaviourPunCallbacks
         HideLights();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L) && photonView.IsMine) HideMyLight();
-    }
-
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         HideLights();
@@ -38,8 +33,8 @@ public class LightManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void HideMyLight()
+    public void UpdateMyLight(bool toggle)
     {
-        myLight.enabled = !myLight.enabled;
+        myLight.enabled = toggle;
     }
 }
