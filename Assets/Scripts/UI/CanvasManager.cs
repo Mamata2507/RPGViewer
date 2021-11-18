@@ -14,7 +14,7 @@ public class CanvasManager : MonoBehaviour
     {
         if (GetComponent<DragAndDrop>() != null)
         {
-            if (GetComponent<DragAndDrop>().isDragging)
+            if (GetComponent<DragAndDrop>().isPressing)
             {
                 if (preventZoom) preventingZoom = true;
                 if (preventDrag) preventingDrag = true;
@@ -39,7 +39,7 @@ public class CanvasManager : MonoBehaviour
     {
         if (GetComponent<DragAndDrop>() != null)
         {
-            if (!GetComponent<DragAndDrop>().isDragging)
+            if (!GetComponent<DragAndDrop>().isPressing)
             {
                 if (preventZoom) preventingZoom = false;
                 if (preventDrag) preventingDrag = false;

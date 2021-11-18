@@ -6,10 +6,12 @@ public class DragAndDrop : MonoBehaviourPun
 {
     private bool snapToGrid = true;
     public bool isDragging = false;
+    public bool isPressing = false;
     
     public GameObject infoBox;
     private Vector3 startPos;
     private Vector3 endPos;
+    private bool closeBox;
 
     private PhotonView photonView;
     private Photon.Realtime.Player lastOwner;
@@ -19,6 +21,18 @@ public class DragAndDrop : MonoBehaviourPun
 
     private void OnMouseDown()
     {
+        if (infoBox.activeInHierarchy == true)
+        {
+            infoBox.SetActive(false);
+            closeBox = true;
+        }
+        else if (infoBox.activeInHierarchy == false)
+        {
+            closeBox = false;
+        }
+
+        isPressing = true;
+
         if (PhotonNetwork.IsMasterClient || lastOwner != photonView.Owner)
         {
             lastOwner = photonView.Owner;
@@ -30,17 +44,16 @@ public class DragAndDrop : MonoBehaviourPun
 
     public void OnMouseUp()
     {
-        StopAllCoroutines();
-        if (isDragging) SnapToGrid();
+        isPressing = false;
 
-        if (Vector3.Distance(startPos, endPos) >= 0.1f)
-        {
-            isDragging = true;
-        }
-        else
+        StopAllCoroutines();
+
+        if (Vector3.Distance(startPos, endPos) <= 0.1f && !closeBox)
         {
             infoBox.SetActive(!infoBox.activeInHierarchy);
         }
+        
+        if (isDragging) SnapToGrid();
     }
 
     private void Start()
@@ -61,6 +74,10 @@ public class DragAndDrop : MonoBehaviourPun
         while (true)
         {
             endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (Vector3.Distance(startPos, endPos) >= 0.1f)
+            {
+                isDragging = true;
+            }
             yield return new WaitForSeconds(0.01f);
         }
         
