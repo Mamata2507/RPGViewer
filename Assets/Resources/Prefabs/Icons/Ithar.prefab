@@ -2048,6 +2048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDragging: 0
+  isPressing: 0
   infoBox: {fileID: 973495867637003957}
 --- !u!114 &8704266109904137056
 MonoBehaviour:
@@ -2084,6 +2085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644fcf559f7e429479002f52a34f654e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myLight: {fileID: 0}
 --- !u!114 &6304351033723693047
 MonoBehaviour:
   m_ObjectHideFlags: 0

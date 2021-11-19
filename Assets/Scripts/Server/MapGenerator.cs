@@ -8,7 +8,7 @@ public class MapGenerator : MonoBehaviourPunCallbacks
     public GameObject playerPrefab;
     public GameObject mapPrefab;
 
-    private PhotonView photonView;
+    private new PhotonView photonView;
 
     private void Start()
     {

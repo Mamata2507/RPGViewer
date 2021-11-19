@@ -13,7 +13,7 @@ public class DragAndDrop : MonoBehaviourPun
     private Vector3 endPos;
     private bool closeBox;
 
-    private PhotonView photonView;
+    private new PhotonView photonView;
     private Photon.Realtime.Player lastOwner;
     private PhotonTransformViewClassic transformView;
     

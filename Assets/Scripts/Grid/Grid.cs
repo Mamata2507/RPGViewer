@@ -12,11 +12,11 @@ public class Grid : MonoBehaviour
     private Vector3 returnPosition;
     private float distanceToPlayer;
 
-    private float width;
-    private float height;
+    [SerializeField] private float width;
+    [SerializeField] private float height;
 
-    private float rows;
-    private float columns;
+    public float cellWidth;
+    public float cellHeight;
 
     private void Update()
     {
@@ -25,8 +25,8 @@ public class Grid : MonoBehaviour
             width = topCorner.transform.position.x - bottomCorner.transform.position.x;
             height = topCorner.transform.position.y - bottomCorner.transform.position.y;
 
-            rows = width / gridSize.x;
-            columns = height / gridSize.y;
+            cellWidth = width / gridSize.x;
+            cellHeight = height / gridSize.y;
         }
     }
 
@@ -36,18 +36,18 @@ public class Grid : MonoBehaviour
         width = topCorner.transform.position.x - bottomCorner.transform.position.x;
         height = topCorner.transform.position.y - bottomCorner.transform.position.y;
 
-        rows = width / gridSize.x;
-        columns = height / gridSize.y;
+        cellWidth = width / gridSize.x;
+        cellHeight = height / gridSize.y;
 
         if (gridSize.x > 0 && gridSize.y > 0)
         {
             Gizmos.color = Color.red;
 
-            for (float x = bottomCorner.transform.position.x; x < topCorner.transform.position.x; x += rows)
+            for (float x = bottomCorner.transform.position.x; x < topCorner.transform.position.x; x += cellWidth)
             {
-                for (float y = bottomCorner.transform.position.y; y < topCorner.transform.position.y; y += columns)
+                for (float y = bottomCorner.transform.position.y; y < topCorner.transform.position.y; y += cellHeight)
                 {
-                    Gizmos.DrawWireCube(new Vector2(x + rows / 2, y + columns / 2), new Vector2(rows, columns));
+                    Gizmos.DrawWireCube(new Vector2(x + cellWidth / 2, y + cellHeight / 2), new Vector2(cellWidth, cellHeight));
                 }
             }
         }
@@ -57,15 +57,15 @@ public class Grid : MonoBehaviour
     {
         float closestPosition = 1000f;
 
-        for (float x = bottomCorner.transform.position.x; x < topCorner.transform.position.x; x += rows)
+        for (float x = bottomCorner.transform.position.x; x < topCorner.transform.position.x; x += cellWidth)
         {
-            for (float y = bottomCorner.transform.position.y; y < topCorner.transform.position.y; y += columns)
+            for (float y = bottomCorner.transform.position.y; y < topCorner.transform.position.y; y += cellHeight)
             {
-                distanceToPlayer = Vector2.Distance(new Vector2(x + rows / 2, y + columns / 2), position);
+                distanceToPlayer = Vector2.Distance(new Vector2(x + cellWidth / 2, y + cellHeight / 2), position);
                 if (distanceToPlayer < closestPosition)
                 {
                     closestPosition = distanceToPlayer;
-                    returnPosition = new Vector2(x + rows / 2, y + columns / 2);
+                    returnPosition = new Vector2(x + cellWidth / 2, y + cellHeight / 2);
                 }
             }
         }
