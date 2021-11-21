@@ -15,8 +15,20 @@ public class InfoManager : MonoBehaviour
 
     [SerializeField] private LightManager LightManager;
 
-    private Grid grid;
+    private GridManager grid;
     private PhotonView photonView;
+
+    public bool isInteracting;
+
+    private void OnMouseOver()
+    {
+        isInteracting = true;
+    }
+
+    private void OnMouseExit()
+    {
+        isInteracting = false;
+    }
 
     private void Start()
     {
@@ -25,7 +37,7 @@ public class InfoManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>() != null && photonView.IsMine) grid = GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>();
+        if (GameObject.FindGameObjectWithTag("Map").GetComponent<GridManager>() != null && photonView.IsMine) grid = GameObject.FindGameObjectWithTag("Map").GetComponent<GridManager>();
 
         UpdateLabel();
         UpdateView();
@@ -43,7 +55,7 @@ public class InfoManager : MonoBehaviour
         {
             if (int.Parse(viewInput.text) >= 0)
             {
-                LightManager.myLight.pointLightOuterRadius = (grid.cellWidth + grid.cellHeight) / 2 * (int.Parse(viewInput.text) / 5) + (grid.cellWidth + grid.cellHeight) / 4;
+                LightManager.myLight.size = (grid.cellWidth + grid.cellHeight) / 2 * (int.Parse(viewInput.text) / 5) + (grid.cellWidth + grid.cellHeight) / 4;
             }
         }
         

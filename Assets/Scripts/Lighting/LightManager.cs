@@ -6,32 +6,26 @@ public class LightManager : MonoBehaviourPunCallbacks
 {
     private GameObject[] lights;
 
-    public UnityEngine.Experimental.Rendering.Universal.Light2D myLight;
+    public FunkyCode.Light2D myLight;
 
     private void Start()
     {
-        myLight = GetComponentInChildren<UnityEngine.Experimental.Rendering.Universal.Light2D>();
-
-        HideLights();
+        photonView.RPC("HideLights", RpcTarget.All);
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        HideLights();
-    }
-
+    [PunRPC]
     private void HideLights()
     {
-        lights = GameObject.FindGameObjectsWithTag("Light");
+        lights = GameObject.FindGameObjectsWithTag("FOWLight");
 
         foreach (var light in lights)
         {
-            if (!light.GetComponent<PhotonView>().IsMine) light.SetActive(false);
+            if (!light.GetComponentInParent<PhotonView>().IsMine) light.SetActive(false);
         }
     }
 
     public void UpdateMyLight(bool toggle)
     {
-        myLight.enabled = toggle;
+       myLight.enabled = toggle;
     }
 }

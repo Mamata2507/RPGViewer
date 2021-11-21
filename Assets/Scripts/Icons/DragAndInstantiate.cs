@@ -48,6 +48,7 @@ public class DragAndInstantiate : MonoBehaviour
     private void DragObject()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        icon.GetComponent<DragAndDrop>().transformView.m_PositionModel.SynchronizeEnabled = false;
         icon.transform.position = mousePos;
     }
 }

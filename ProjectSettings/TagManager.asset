@@ -6,10 +6,12 @@ TagManager:
   tags:
   - Character
   - Map
-  - Light
   - Top Corner
   - Bottom Corner
   - CameraHandler
+  - FOW Light
+  - Regular Light
+  - FOWLight
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Lights
   - 
   - 
   - 

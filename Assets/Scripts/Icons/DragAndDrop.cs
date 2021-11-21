@@ -14,10 +14,11 @@ public class DragAndDrop : MonoBehaviourPun
     private bool closeBox;
 
     private new PhotonView photonView;
-    private Photon.Realtime.Player lastOwner;
-    private PhotonTransformViewClassic transformView;
+    public Photon.Realtime.Player originalOwner;
+
+    public PhotonTransformViewClassic transformView;
     
-    private Grid grid;
+    private GridManager grid;
 
     private void OnMouseDown()
     {
@@ -33,9 +34,8 @@ public class DragAndDrop : MonoBehaviourPun
 
         isPressing = true;
 
-        if (PhotonNetwork.IsMasterClient || lastOwner != photonView.Owner)
+        if (PhotonNetwork.IsMasterClient)
         {
-            lastOwner = photonView.Owner;
             photonView.RequestOwnership();
         }
         startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -43,7 +43,7 @@ public class DragAndDrop : MonoBehaviourPun
     }
 
     public void OnMouseUp()
-    {
+    {        
         isPressing = false;
 
         StopAllCoroutines();
@@ -54,19 +54,27 @@ public class DragAndDrop : MonoBehaviourPun
         }
         
         if (isDragging) SnapToGrid();
+        if (photonView.Owner != originalOwner) photonView.TransferOwnership(originalOwner);
     }
 
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
         transformView = GetComponent<PhotonTransformViewClassic>();
-        lastOwner = photonView.Owner;
+
+        originalOwner = photonView.Owner;
+        infoBox.SetActive(false);
     }
 
     private void Update()
     {
-        if (GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>() != null && photonView.IsMine) grid = GameObject.FindGameObjectWithTag("Map").GetComponent<Grid>();
+        if (GameObject.FindGameObjectWithTag("Map").GetComponent<GridManager>() != null && photonView.IsMine) grid = GameObject.FindGameObjectWithTag("Map").GetComponent<GridManager>();
         if (isDragging && photonView.IsMine) DragObject();
+
+        if (Input.GetMouseButtonDown(0) && infoBox.activeInHierarchy == true && !infoBox.GetComponent<CanvasManager>().preventingDrag)
+        {
+            infoBox.SetActive(false);
+        }
     }
 
     private IEnumerator CheckDragging()
@@ -93,9 +101,10 @@ public class DragAndDrop : MonoBehaviourPun
 
     public void SnapToGrid()
     {
+
         isDragging = false;
 
-        if (snapToGrid && photonView.IsMine)
+        if (snapToGrid)
         {
             transform.Translate(grid.GetClosestPosition(transform.position) - transform.position);
             transformView.m_PositionModel.SynchronizeEnabled = true;
