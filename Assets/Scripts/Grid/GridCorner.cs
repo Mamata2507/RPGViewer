@@ -20,6 +20,5 @@ public class GridCorner : MonoBehaviour
             Gizmos.DrawLine(transform.position, new Vector2(transform.position.x, topCorner.transform.position.y));
             Gizmos.DrawLine(transform.position, new Vector2(topCorner.transform.position.x, transform.position.y));
         }
-
     }
 }
