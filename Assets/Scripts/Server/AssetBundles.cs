@@ -55,6 +55,7 @@ public static class AssetBundles
 
         if (www.result != UnityWebRequest.Result.Success)
         {
+            assetBundlesMonoBehaviour.StartCoroutine(GetIcons(path));
             Debug.Log(www.error);
         }
         else
@@ -78,6 +79,7 @@ public static class AssetBundles
 
         if (www.result != UnityWebRequest.Result.Success)
         {
+            assetBundlesMonoBehaviour.StartCoroutine(GetMaps(path));
             Debug.Log(www.error);
         }
         else
@@ -86,7 +88,7 @@ public static class AssetBundles
             maps = assetBundle.LoadAllAssets();
             yield return new WaitUntil(() => maps.Length > 0);
             
-            foreach (var item in icons)
+            foreach (var item in maps)
             {
                 PreparePool.maps.Add((GameObject)item);
                 PreparePool.AddToPrefabs((GameObject)item);

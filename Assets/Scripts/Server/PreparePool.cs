@@ -21,6 +21,7 @@ public static class PreparePool
             foreach (GameObject prefab in prefabs)
             {
                 pool.ResourceCache.Add(prefab.name, prefab);
+                Debug.Log(prefab);
             }
         }
     }

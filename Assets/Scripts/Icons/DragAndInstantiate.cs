@@ -42,7 +42,7 @@ public class DragAndInstantiate : MonoBehaviour
 
     private void InstantiateIcon()
     {
-        icon = PhotonNetwork.Instantiate("Prefabs/Icons/" + iconPrefab.name, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+        icon = PhotonNetwork.Instantiate(iconPrefab.name, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
     }
     
     private void DragObject()
