@@ -67,7 +67,7 @@ public static class AssetBundles
             foreach (var item in icons)
             {
                 PreparePool.icons.Add((GameObject)item);
-                PreparePool.AddToPrefabs((GameObject)item);
+                PreparePool.prefabs.Add((GameObject)item);
             }
         }
     }
@@ -91,7 +91,7 @@ public static class AssetBundles
             foreach (var item in maps)
             {
                 PreparePool.maps.Add((GameObject)item);
-                PreparePool.AddToPrefabs((GameObject)item);
+                PreparePool.prefabs.Add((GameObject)item);
             }
         }
     }
