@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1657356804
+CRC: 43725437
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: e787b71eef761429725d6596f18ee8b0
+    Hash: 094707102ab69b1b107d82739b5fc9da
   TypeTreeHash:
     serializedVersion: 2
     Hash: 0527d2251c778e14c7e4eb6ea6c111f1
@@ -79,6 +79,7 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Resources/Prefabs/Icons/Quorthon.prefab
 - Assets/Resources/Prefabs/Icons/Kvothe.prefab
+- Assets/Resources/Prefabs/Icons/Ithar.prefab
 - Assets/Resources/Prefabs/Icons/Geleen.prefab
 - Assets/Resources/Prefabs/Icons/Zarubar.prefab
 Dependencies: []
