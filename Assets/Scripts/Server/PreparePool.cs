@@ -2,29 +2,23 @@
 using System.Collections.Generic;
 using Photon.Pun;
 
-public class PreparePool : MonoBehaviour
+public static class PreparePool
 {
-    #region Singleton
-    public static PreparePool instance;
+    private static List<GameObject> prefabs = new List<GameObject>();
+    public static List<GameObject> icons = new List<GameObject>();
+    public static List<GameObject> maps = new List<GameObject>();
 
-    private void Awake()
+    public static void AddToPrefabs(GameObject prefab)
     {
-        if (instance != null)
-        {
-            return;
-        }
-        instance = this;
+        prefabs.Add(prefab);
     }
-    #endregion
 
-    public List<GameObject> Prefabs;
-
-    public void ReloadPrefabs()
+    public static void ReloadPrefabs()
     {
         DefaultPool pool = PhotonNetwork.PrefabPool as DefaultPool;
-        if (pool != null && this.Prefabs != null)
+        if (pool != null && prefabs != null)
         {
-            foreach (GameObject prefab in this.Prefabs)
+            foreach (GameObject prefab in prefabs)
             {
                 pool.ResourceCache.Add(prefab.name, prefab);
             }

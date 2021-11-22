@@ -12,6 +12,7 @@ TagManager:
   - FOW Light
   - Regular Light
   - FOWLight
+  - GridManager
   layers:
   - Default
   - TransparentFX

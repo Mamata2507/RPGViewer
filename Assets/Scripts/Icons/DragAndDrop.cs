@@ -68,7 +68,7 @@ public class DragAndDrop : MonoBehaviourPun
 
     private void Update()
     {
-        if (GameObject.FindGameObjectWithTag("Map").GetComponent<GridManager>() != null && photonView.IsMine) grid = GameObject.FindGameObjectWithTag("Map").GetComponent<GridManager>();
+        if (GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>() != null && photonView.IsMine) grid = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
         if (isDragging && photonView.IsMine) DragObject();
 
         if (Input.GetMouseButtonDown(0) && infoBox.activeInHierarchy == true && !infoBox.GetComponent<CanvasManager>().preventingDrag)

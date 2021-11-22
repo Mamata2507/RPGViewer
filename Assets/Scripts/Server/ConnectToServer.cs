@@ -11,7 +11,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     private void Start()
     {
         StartCoroutine(UpdateHeader());
-        StartCoroutine(Connect());
+        Connect();
     }
 
     public override void OnConnectedToMaster()
@@ -24,7 +24,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("Lobby");
     }
 
-    public IEnumerator UpdateHeader()
+    private IEnumerator UpdateHeader()
     {
         while (true)
         {
@@ -40,9 +40,8 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         }
     }
 
-    public IEnumerator Connect()
+    private void Connect()
     {
-        yield return new WaitForSeconds(3.0f);
         PhotonNetwork.ConnectUsingSettings();
     }
 }
