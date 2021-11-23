@@ -58,7 +58,6 @@ public static class AssetBundles
 
         if (www.result != UnityWebRequest.Result.Success)
         {
-            assetBundlesMonoBehaviour.StartCoroutine(GetIcons(path));
             Debug.Log(www.error);
         }
         else
@@ -82,7 +81,6 @@ public static class AssetBundles
 
         if (www.result != UnityWebRequest.Result.Success)
         {
-            assetBundlesMonoBehaviour.StartCoroutine(GetMaps(path));
             Debug.Log(www.error);
         }
         else
