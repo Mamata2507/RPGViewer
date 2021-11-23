@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class MapButtons : MonoBehaviour
+public class MapButtons : MonoBehaviourPun
 {
     public GameObject map;
 
@@ -17,6 +18,7 @@ public class MapButtons : MonoBehaviour
         {
             if (map == item.mapPrefab)
             {
+                photonView.RPC("DestroyMap", RpcTarget.All);
                 item.AcceptMap();
                 map = null;
             }
@@ -36,5 +38,11 @@ public class MapButtons : MonoBehaviour
             if (item.acceptButton != null) item.cancelButton.SetActive(false);
         }
         map = null;
+    }
+
+    [PunRPC]
+    private void DestroyMap()
+    {
+        if (GameObject.FindGameObjectWithTag("Map") != null) Destroy(GameObject.FindGameObjectWithTag("Map"));
     }
 }

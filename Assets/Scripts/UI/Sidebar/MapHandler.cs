@@ -53,7 +53,6 @@ public class MapHandler : MonoBehaviourPun
 
     public void AcceptMap()
     {
-        photonView.RPC("DestroyMap", RpcTarget.All);
         PhotonNetwork.Instantiate(mapPrefab.name, new Vector3(0, 0, 0), Quaternion.identity);
     }
 
@@ -61,11 +60,5 @@ public class MapHandler : MonoBehaviourPun
     {
         acceptButton.SetActive(false);
         cancelButton.SetActive(false);
-    }
-
-    [PunRPC]
-    private void DestroyMap()
-    {
-        Destroy(GameObject.FindGameObjectWithTag("Map"));
     }
 }
