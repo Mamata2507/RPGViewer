@@ -94,6 +94,8 @@ public static class AssetBundles
                 PreparePool.maps.Add((GameObject)item);
                 PreparePool.prefabs.Add((GameObject)item);
             }
+
+            PreparePool.ReloadPrefabs();
         }
     }
 }

@@ -13,6 +13,8 @@ TagManager:
   - Regular Light
   - FOWLight
   - GridManager
+  - AcceptButton
+  - CancelButton
   layers:
   - Default
   - TransparentFX
