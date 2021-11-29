@@ -48,6 +48,7 @@ MonoBehaviour:
   topCorner: {fileID: 8937194387189012820}
   bottomCorner: {fileID: 671896630858639530}
   gridSize: {x: 42, y: 27}
+  gridCell: {fileID: 8582017078397531938, guid: cd93c5a9821ae1d47834e3876e2458c8, type: 3}
   width: 34.73
   height: 22.342
   cellWidth: 0.8269048
