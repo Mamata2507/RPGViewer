@@ -8,6 +8,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject topCorner;
     [SerializeField] private GameObject bottomCorner;
     public Vector2 gridSize;
+    public GameObject gridCell;
 
     private Vector3 returnPosition;
     private float distanceToPlayer;
@@ -17,6 +18,18 @@ public class GridManager : MonoBehaviour
 
     public float cellWidth;
     public float cellHeight;
+
+    private void Start()
+    {
+        for (float x = bottomCorner.transform.position.x; x < topCorner.transform.position.x; x += cellWidth)
+        {
+            for (float y = bottomCorner.transform.position.y; y < topCorner.transform.position.y; y += cellHeight)
+            {
+                GameObject cell = Instantiate(gridCell, new Vector2(x + cellWidth / 2, y + cellHeight / 2), Quaternion.identity, this.transform);
+                cell.transform.localScale = new Vector2(cellWidth, cellHeight);
+            }
+        }
+    }
 
     private void Update()
     {
