@@ -3,7 +3,7 @@
 public class ConsoleManager : MonoBehaviour
 {
     string myLog = "";
-    bool showManager = true;
+    bool showManager = false;
 
     private void OnEnable()
     {

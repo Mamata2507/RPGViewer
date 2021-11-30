@@ -43,11 +43,11 @@ public static class AssetBundles
 
         if (type == "icons")
         {
-            assetBundlesMonoBehaviour.StartCoroutine(GetIcons("https://github.com/FrostCrystals/RPGViewer/blob/networking/AssetBundles/icons?raw=true"));
+            assetBundlesMonoBehaviour.StartCoroutine(GetIcons("https://drive.google.com/uc?export=download&id=1J0Ke8KSJejBfQrl0D-U8f5vPCVP7kSNI"));
         }
         else if (type == "maps")
         {
-            assetBundlesMonoBehaviour.StartCoroutine(GetMaps("https://github.com/FrostCrystals/RPGViewer/blob/networking/AssetBundles/maps?raw=true"));
+            assetBundlesMonoBehaviour.StartCoroutine(GetMaps("https://drive.google.com/uc?export=download&id=1Vh_xO25qBBu7w4cCBSjxoC4XbRkBTdax"));
         }
     }
 
