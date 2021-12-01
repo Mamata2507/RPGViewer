@@ -38,10 +38,10 @@ MonoBehaviour:
   - DestroyRpc
   - GenerateMap
   - HideLights
+  - DestroyMap
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
-  - DestroyMap
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

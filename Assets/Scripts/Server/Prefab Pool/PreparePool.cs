@@ -13,6 +13,8 @@ public static class PreparePool
         DefaultPool pool = PhotonNetwork.PrefabPool as DefaultPool;
         if (pool != null && prefabs != null)
         {
+            pool.ResourceCache.Clear();
+
             foreach (GameObject prefab in prefabs)
             {
                 pool.ResourceCache.Add(prefab.name, prefab);
