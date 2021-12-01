@@ -6,6 +6,6 @@ public class BundleBuilder : Editor
     [MenuItem("Assets/Build AssetBundles")]
     static void BuildAllAssetBundles()
     {
-        BuildPipeline.BuildAssetBundles(@"G:\My Drive\AssetBundles", BuildAssetBundleOptions.ChunkBasedCompression, EditorUserBuildSettings.activeBuildTarget);
+        BuildPipeline.BuildAssetBundles(@"C:\Projects\GitHub\Repositories\RPGViewer\AssetBundles", BuildAssetBundleOptions.ChunkBasedCompression, EditorUserBuildSettings.activeBuildTarget);
     }
 }

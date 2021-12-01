@@ -43,11 +43,11 @@ public static class AssetBundles
 
         if (type == "icons")
         {
-            assetBundlesMonoBehaviour.StartCoroutine(GetIcons("https://drive.google.com/uc?export=download&id=1J0Ke8KSJejBfQrl0D-U8f5vPCVP7kSNI"));
+            assetBundlesMonoBehaviour.StartCoroutine(GetIcons("https://storage.googleapis.com/rpgviewer/AssetBundles/icons"));
         }
         else if (type == "maps")
         {
-            assetBundlesMonoBehaviour.StartCoroutine(GetMaps("https://drive.google.com/uc?export=download&id=1Vh_xO25qBBu7w4cCBSjxoC4XbRkBTdax"));
+            assetBundlesMonoBehaviour.StartCoroutine(GetMaps("https://storage.googleapis.com/rpgviewer/AssetBundles/maps"));
         }
     }
 
