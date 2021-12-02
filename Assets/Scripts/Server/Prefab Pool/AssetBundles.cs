@@ -63,6 +63,7 @@ public static class AssetBundles
         else
         {
             iconBundle = DownloadHandlerAssetBundle.GetContent(www);
+            //iconBundle = AssetBundle.LoadFromFile(@"C:\Projects\GitHub\Repositories\RPGViewer\AssetBundles\icons");
             icons = iconBundle.LoadAllAssets();
             yield return new WaitUntil(() => icons.Length > 0);
 
@@ -70,6 +71,7 @@ public static class AssetBundles
             {
                 PreparePool.icons.Add((GameObject)item);
                 PreparePool.prefabs.Add((GameObject)item);
+                Debug.Log(item.name);
             }
         }
     }
@@ -86,6 +88,7 @@ public static class AssetBundles
         else
         {
             mapBundle = DownloadHandlerAssetBundle.GetContent(www);
+            //mapBundle = AssetBundle.LoadFromFile(@"C:\Projects\GitHub\Repositories\RPGViewer\AssetBundles\maps");
             maps = mapBundle.LoadAllAssets();
             yield return new WaitUntil(() => maps.Length > 0);
             
@@ -93,6 +96,7 @@ public static class AssetBundles
             {
                 PreparePool.maps.Add((GameObject)item);
                 PreparePool.prefabs.Add((GameObject)item);
+                Debug.Log(item.name);
             }
 
             PreparePool.ReloadPrefabs();
