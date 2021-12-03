@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEditor;
+using Unity;
 
 public class BundleBuilder : Editor
 {
@@ -9,6 +10,11 @@ public class BundleBuilder : Editor
         BuildPipeline.BuildAssetBundles(@"C:\Projects\GitHub\Repositories\RPGViewer\AssetBundles", BuildAssetBundleOptions.ChunkBasedCompression, EditorUserBuildSettings.activeBuildTarget);
         string init;
         init = File.ReadAllText(@"C:\Projects\GitHub\Repositories\RPGViewer\AssetBundles\init.txt");
-        System.Diagnostics.Process.Start(@"C:\Users\ALEKSI\AppData\Local\Google\Cloud SDK\cloud_env.bat", init);
+        
+        var process = System.Diagnostics.Process.Start("cmd.exe", init);
+
+        process.WaitForExit();
+
+        File.WriteAllText(@"C:\Projects\GitHub\Repositories\RPGViewer\AssetBundles\update.txt", "true");
     }
 }

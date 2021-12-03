@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3280418236
+CRC: 1802033022
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: efaad16438e13f7545368dd39d967b6f
+    Hash: e64f6bcae33a10fc053ad8e06adae6b9
   TypeTreeHash:
     serializedVersion: 2
     Hash: 6ca8c5d9fbab4df840d8b1ead900ba3a
@@ -35,6 +35,6 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Resources/Prefabs/Maps/Dungeon2.prefab
+- Assets/Resources/Prefabs/Maps/Dungeon.prefab
 - Assets/Resources/Prefabs/Maps/Yellyark.prefab
 Dependencies: []

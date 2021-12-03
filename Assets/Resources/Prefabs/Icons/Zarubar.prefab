@@ -511,6 +511,7 @@ MonoBehaviour:
   viewInput: {fileID: 8148659875035935345}
   lightsToggle: {fileID: 5643324128211688455}
   LightManager: {fileID: 143709542340168006}
+  isInteracting: 0
 --- !u!1 &2183417865144888918
 GameObject:
   m_ObjectHideFlags: 0
