@@ -17,11 +17,6 @@ public class RoomInstatiation : MonoBehaviour
         {
             Debug.Log("Update Bundles");
 
-            //AssetBundle.UnloadAllAssetBundles(true);
-
-            AssetBundles.GetAssetBundles("icons");
-            AssetBundles.GetAssetBundles("maps");
-
             File.WriteAllText(@"C:\Projects\GitHub\Repositories\RPGViewer\AssetBundles\update.txt", "false");
         }
     }
