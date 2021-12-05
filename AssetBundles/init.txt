@@ -1,1 +1,0 @@
-/C gsutil -h "Cache-Control:no-cache" cp -r "C:\Projects\GitHub\Repositories\RPGViewer\AssetBundles" gs://rpgviewer
