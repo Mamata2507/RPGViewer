@@ -6,6 +6,7 @@ using System.Collections;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
+    // Header (Connecting...)
     [SerializeField] private TMP_Text header;
 
     private void Start()
@@ -16,14 +17,19 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
+        //Joining the lobby
         PhotonNetwork.JoinLobby();
     }
 
     public override void OnJoinedLobby()
     {
+        // Loading lobby scene
         SceneManager.LoadScene("Lobby");
     }
 
+    /// <summary>
+    /// Updating the visual of the header
+    /// </summary>
     private IEnumerator UpdateHeader()
     {
         while (true)
@@ -40,6 +46,9 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         }
     }
 
+    /// <summary>
+    /// Connect to the server
+    /// </summary>
     private void Connect()
     {
         PhotonNetwork.ConnectUsingSettings();

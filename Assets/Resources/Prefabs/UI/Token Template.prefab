@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d811e408f7c251344ab8c282d8302533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconPrefab: {fileID: 0}
+  tokenTemplate: {fileID: 8704266109904137083, guid: 4cdf55e68de8cdb4aa3ce971440a3652, type: 3}
   isDragging: 0
 --- !u!114 &-1456481762350024162
 MonoBehaviour:

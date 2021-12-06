@@ -1,17 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
+    // Prevent zooming and moving of camera
     [SerializeField] private bool preventZoom;
     [SerializeField] private bool preventDrag;
 
-    public bool preventingZoom;
-    public bool preventingDrag;
+    // Currently ppreventing zoom and drag (hiding in inspector)
+    [HideInInspector] public bool preventingZoom;
+    [HideInInspector] public bool preventingDrag;
 
     private void OnMouseOver()
     {
+        Debug.Log("Runs " + gameObject.name);
+        // Preventing camera controlling when dragging tokens
         if (GetComponent<DragAndDrop>() != null)
         {
             if (GetComponent<DragAndDrop>().isPressing)
@@ -20,6 +22,8 @@ public class CanvasManager : MonoBehaviour
                 if (preventDrag) preventingDrag = true;
             }
         }
+
+        // Preventing camera controlling when instantiating tokens
         else if (GetComponent<DragAndInstantiate>() != null)
         {
             if (GetComponent<DragAndInstantiate>().isDragging)
@@ -28,6 +32,8 @@ public class CanvasManager : MonoBehaviour
                 if (preventDrag) preventingDrag = true;
             }
         }
+
+        // Preventing zoom outside of tokens
         else
         {
             if (preventZoom) preventingZoom = true;
@@ -37,6 +43,7 @@ public class CanvasManager : MonoBehaviour
 
     private void OnMouseExit()
     {
+        // Enabling camera controlling after dragging tokens
         if (GetComponent<DragAndDrop>() != null)
         {
             if (!GetComponent<DragAndDrop>().isPressing)
@@ -45,6 +52,7 @@ public class CanvasManager : MonoBehaviour
                 if (preventDrag) preventingDrag = false;
             }
         }
+        // Enabling camera controlling after instantiated tokens
         else if (GetComponent<DragAndInstantiate>() != null)
         {
             if (!GetComponent<DragAndInstantiate>().isDragging)
@@ -53,12 +61,12 @@ public class CanvasManager : MonoBehaviour
                 if (preventDrag) preventingDrag = false;
             }   
         }
+
+        // Enabling zoom outside of tokens
         else
         {
             if (preventZoom) preventingZoom = false;
             if (preventDrag) preventingDrag = false;
-        }
-        
-        
+        } 
     }
 }

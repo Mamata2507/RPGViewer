@@ -4,16 +4,15 @@ using Photon.Pun;
 
 public class UIManager : MonoBehaviour
 {
+    // Application resolution
     private Resolution fullResolution;
-    private bool isWindowed = true;
+    private bool isWindowed;
 
     private void Start()
     {
+        isWindowed = true;
         Screen.fullScreen = false;
         fullResolution = Screen.currentResolution;
-
-        if (Screen.fullScreen == true) isWindowed = false;
-        else isWindowed = true;
     }
 
     private void Update()
@@ -22,10 +21,14 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftAlt))
         {
+            // Closing application when pressing Alt + Esc
             if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
         }
     }
 
+    /// <summary>
+    /// Handling fullscreen and windowed modes
+    /// </summary>
     private void HandeWindow()
     {
         // Toggling fullscreen on & off by pressing F11
@@ -51,16 +54,5 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void ExitGame()
-    {
-        Application.Quit();
-    }
-
-    public void MainMenu()
-    {
-        PhotonNetwork.LeaveRoom();
-        SceneManager.LoadScene("Lobby");
     }
 }

@@ -1,14 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+
 public class MapHandler : MonoBehaviourPun
 {
+    // Accpet and Cancel buttons
     public GameObject acceptButton;
     public GameObject cancelButton;
 
+    // Prefab of currently selected map
     public GameObject mapPrefab;
 
+    // Mouse over GUI
     public bool canInstantiate;
 
     private void OnMouseOver()
@@ -26,6 +28,7 @@ public class MapHandler : MonoBehaviourPun
         acceptButton = GetComponentInParent<MapButtons>().acceptButton;
         cancelButton = GetComponentInParent<MapButtons>().cancelButton;
 
+        // Hiding buttons
         if (acceptButton != null) acceptButton.SetActive(false);
         if (acceptButton != null) cancelButton.SetActive(false);
     }
@@ -44,21 +47,23 @@ public class MapHandler : MonoBehaviourPun
         }
     }
 
+    /// <summary>
+    /// Selecting clicked map
+    /// </summary>
     private void SelectMap()
     {
         GetComponentInParent<MapButtons>().map = mapPrefab;
+
+        // Showing buttons
         acceptButton.SetActive(true);
         cancelButton.SetActive(true);
     }
 
+    /// <summary>
+    /// Instantiating selected map
+    /// </summary>
     public void AcceptMap()
     {
         PhotonNetwork.Instantiate(mapPrefab.name, new Vector3(0, 0, 0), Quaternion.identity);
-    }
-
-    public void CancelMap()
-    {
-        acceptButton.SetActive(false);
-        cancelButton.SetActive(false);
     }
 }
