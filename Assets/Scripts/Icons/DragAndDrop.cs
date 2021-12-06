@@ -94,6 +94,9 @@ public class DragAndDrop : MonoBehaviourPun
         // Getting reference of the grid
         if (GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>() != null && photonView.IsMine) grid = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
 
+        // Scaling token according to grid size
+        if (grid != null) transform.localScale = new Vector3(grid.cellWidth, grid.cellWidth, 1);
+
         // Drag token if it's mine
         if (isDragging && photonView.IsMine) DragToken();
 

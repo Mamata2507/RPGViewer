@@ -50,7 +50,7 @@ public class LoadMaps : MonoBehaviour
         for (int i = 0; i < maps.Count; i++)
         {
             GameObject instantiatedMap = Instantiate(mapTemplate, this.transform);
-            instantiatedMap.transform.position = (new Vector3(transform.position.x, transform.position.y - 230 * i - 120, -15));
+            instantiatedMap.transform.localPosition = (new Vector3(0, transform.position.y - 230 * i - 120, -15));
             instantiatedMap.GetComponent<Image>().sprite = maps[i].GetComponent<SpriteRenderer>().sprite;
             instantiatedMap.GetComponent<MapHandler>().mapPrefab = maps[i];
 

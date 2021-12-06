@@ -45,12 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48aa51a0098186f45b45d29f2d0b0fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topCorner: {fileID: 8937194387189012820}
-  bottomCorner: {fileID: 671896630858639530}
+  topCorner: {fileID: 6049510445470287286}
+  bottomCorner: {fileID: 8824607370651635563}
   gridSize: {x: 42, y: 27}
   gridCell: {fileID: 8582017078397531938, guid: cd93c5a9821ae1d47834e3876e2458c8, type: 3}
-  width: 34.73
-  height: 22.342
   cellWidth: 0.8269048
   cellHeight: 0.82748145
 --- !u!1 &671896630858639530
@@ -96,8 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d67b439681a1d4c9d33aaf02c885f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topCorner: {fileID: 8937194387189012820}
-  bottomCorner: {fileID: 671896630858639530}
+  topCorner: {fileID: 6049510445470287286}
+  bottomCorner: {fileID: 8824607370651635563}
 --- !u!1 &2800186904121091004
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,5 +245,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d67b439681a1d4c9d33aaf02c885f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topCorner: {fileID: 8937194387189012820}
-  bottomCorner: {fileID: 671896630858639530}
+  topCorner: {fileID: 6049510445470287286}
+  bottomCorner: {fileID: 8824607370651635563}

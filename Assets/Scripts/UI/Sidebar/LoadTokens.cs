@@ -51,7 +51,7 @@ public class LoadTokens : MonoBehaviour
         for (int i = 0; i < tokens.Count; i++)
         {
             GameObject instantiatedIcon = Instantiate(tokenTemplate, this.transform);
-            instantiatedIcon.transform.position = (new Vector3(transform.position.x, transform.position.y - 60 * i - 40, -15));
+            instantiatedIcon.transform.localPosition = (new Vector3(0, transform.position.y - 75 * i - 40, -15));
 
             string url = "https://storage.googleapis.com/rpgviewer/Tokens/" + tokens[i] + ".png";
             WebRequest.GetTexture(url, (string error) =>

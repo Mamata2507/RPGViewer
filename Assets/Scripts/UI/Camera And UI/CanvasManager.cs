@@ -12,7 +12,6 @@ public class CanvasManager : MonoBehaviour
 
     private void OnMouseOver()
     {
-        Debug.Log("Runs " + gameObject.name);
         // Preventing camera controlling when dragging tokens
         if (GetComponent<DragAndDrop>() != null)
         {
