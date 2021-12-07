@@ -10,9 +10,16 @@ public class MapButtons : MonoBehaviourPun
     public GameObject acceptButton;
     public GameObject cancelButton;
 
+    private void Start()
+    {
+        acceptButton.SetActive(false);
+        cancelButton.SetActive(false);
+    }
+
     /// <summary>
     /// Accepting currently selected map (called when pressing Accept-button)
     /// </summary>
+    /// 
     public void AcceptMap()
     {
         MapHandler[] maps = GetComponentsInChildren<MapHandler>();
@@ -26,8 +33,8 @@ public class MapButtons : MonoBehaviourPun
                 this.map = null;
             }
 
-            if (map.acceptButton != null) map.acceptButton.SetActive(false);
-            if (map.acceptButton != null) map.cancelButton.SetActive(false);
+            acceptButton.SetActive(false);
+            cancelButton.SetActive(false);
         }
     }
 
@@ -36,13 +43,8 @@ public class MapButtons : MonoBehaviourPun
     /// </summary>
     public void CancelMap()
     {
-        MapHandler[] maps = GetComponentsInChildren<MapHandler>();
-
-        foreach (var map in maps)
-        {
-            if (map.acceptButton != null) map.acceptButton.SetActive(false);
-            if (map.acceptButton != null) map.cancelButton.SetActive(false);
-        }
+        acceptButton.SetActive(false);
+        cancelButton.SetActive(false);
         map = null;
     }
 

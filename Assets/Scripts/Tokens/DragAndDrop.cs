@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 using System.Collections;
 
 public class DragAndDrop : MonoBehaviourPun
@@ -92,14 +93,27 @@ public class DragAndDrop : MonoBehaviourPun
     private void Update()
     {
         // Getting reference of the grid
-        if (FindObjectOfType<GridManager>() != null && photonView.IsMine) grid = FindObjectOfType<GridManager>();
+        if (FindObjectOfType<GridManager>() != null && photonView.IsMine)
+        {
+            grid = FindObjectOfType<GridManager>();
+
+            GetComponent<LightManager>().myLight.size = grid.cellWidth * (60 / 5) + grid.cellHeight / 2;
+        }
 
         if (grid != null) SetScale((GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f);
+
 
         // Drag token if it's mine
         if (isDragging && photonView.IsMine) DragToken();
 
-        if (Input.GetMouseButtonDown(0) && infoBox.activeInHierarchy == true && !infoBox.GetComponent<Canvas2D>().preventingDrag)
+        Canvas2D[] managers = infoBox.GetComponentsInChildren<Canvas2D>();
+        bool canExit = true;
+        foreach (var manager in managers)
+        {
+            if (manager.preventingDrag) canExit = false;
+        }
+
+        if (Input.GetMouseButtonDown(0) && infoBox.activeInHierarchy == true && canExit)
         {
             infoBox.SetActive(false);
         }

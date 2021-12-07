@@ -8,10 +8,13 @@ public class LoadTokens : MonoBehaviour
     private List<string> tokens = new List<string>();
 
     private bool reloaded = false;
+    private GridManager grid;
 
     private void Update()
     {
-        if (Assets.tokens.Count > 0 && !reloaded)
+        if (FindObjectOfType<GridManager>() != null) grid = FindObjectOfType<GridManager>();
+
+        if (Assets.tokens.Count > 0 && !reloaded && grid != null)
         {
             ReloadTokens();
         }
@@ -50,7 +53,9 @@ public class LoadTokens : MonoBehaviour
         for (int i = 0; i < tokens.Count; i++)
         {
             GameObject instantiatedIcon = Instantiate(tokenTemplate, this.transform);
-            instantiatedIcon.transform.localPosition = (new Vector3(0, transform.position.y - 75 * i - 40, -15));
+            instantiatedIcon.transform.localPosition = (new Vector3(0, transform.position.y - 75 * i - 50, -15));
+
+            instantiatedIcon.name = tokens[i];
 
             string url = "https://storage.googleapis.com/rpgviewer/Tokens/" + tokens[i] + ".png";
             WebRequest.GetTexture(url, (string error) =>

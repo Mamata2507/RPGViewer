@@ -13,6 +13,7 @@ public class WindowsManager : MonoBehaviour
         isWindowed = true;
         Screen.fullScreen = false;
         fullResolution = Screen.currentResolution;
+        Screen.SetResolution(fullResolution.width / 2, fullResolution.height / 2, false);
     }
 
     private void Update()

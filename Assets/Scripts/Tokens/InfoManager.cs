@@ -5,13 +5,8 @@ using Photon.Pun;
 
 public class InfoManager : MonoBehaviour
 {
-    // Label of the token
-    [SerializeField] private TMP_InputField labelInput;
-    [SerializeField] private TMP_Text labelText;
-
     // View distance of the token
-    [SerializeField] private TMP_InputField viewInput;
-    [SerializeField] private Toggle lightsToggle;
+    public TMP_InputField viewInput;
     private GridManager grid;
 
     // Lighting of the token
@@ -43,17 +38,7 @@ public class InfoManager : MonoBehaviour
         // Getting reference of grid
         if (FindObjectOfType<GridManager>() != null && photonView.IsMine) grid = FindObjectOfType<GridManager>();
 
-        UpdateLabel();
         UpdateView();
-        UpdateLights();
-    }
-
-    /// <summary>
-    /// Uploading label text
-    /// </summary>
-    private void UpdateLabel()
-    {
-        labelText.text = labelInput.text;
     }
 
     /// <summary>
@@ -69,13 +54,5 @@ public class InfoManager : MonoBehaviour
             }
         }
         
-    }
-
-    /// <summary>
-    /// Uploading light visibility
-    /// </summary>
-    private void UpdateLights()
-    {
-        LightManager.UpdateMyLight(lightsToggle.isOn);
     }
 }

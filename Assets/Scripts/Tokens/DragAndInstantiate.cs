@@ -2,13 +2,14 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 
-public class DragAndInstantiate : MonoBehaviour
+public class DragAndInstantiate : MonoBehaviourPunCallbacks
 {
     // Teplate to instantiate
     [SerializeField] private GameObject tokenTemplate;
 
     // Currently instantiated token
     private GameObject token;
+    private float tokenNumber;
 
     // Dragging of the token
     public bool isDragging = false;
@@ -63,6 +64,8 @@ public class DragAndInstantiate : MonoBehaviour
         token = PhotonNetwork.Instantiate(@"Prefabs\Tokens\" + tokenTemplate.name, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
 
         token.GetComponentInChildren<SpriteRenderer>().sprite = GetComponent<Image>().sprite;
+        token.name = this.gameObject.name + " " + tokenNumber;
+        tokenNumber++;
     }
 
     /// <summary>

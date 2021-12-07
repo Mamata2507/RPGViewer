@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class MapHandler : MonoBehaviourPun
 {
@@ -9,18 +10,19 @@ public class MapHandler : MonoBehaviourPun
 
     // Prefab of currently selected map
     public GameObject mapPrefab;
+    public GameObject outline;
 
     // Mouse over GUI
-    public bool canInstantiate;
+    public bool canSelect;
 
     private void OnMouseOver()
     {
-        canInstantiate = true;
+        canSelect = true;
     }
 
     private void OnMouseExit()
     {
-        canInstantiate = false;
+        canSelect = false;
     }
 
     private void Start()
@@ -28,16 +30,21 @@ public class MapHandler : MonoBehaviourPun
         acceptButton = GetComponentInParent<MapButtons>().acceptButton;
         cancelButton = GetComponentInParent<MapButtons>().cancelButton;
 
-        // Hiding buttons
-        if (acceptButton != null) acceptButton.SetActive(false);
-        if (acceptButton != null) cancelButton.SetActive(false);
+        outline.SetActive(false);
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && canInstantiate)
+        if (Input.GetMouseButtonDown(0) && canSelect)
         {
+            GetComponent<Canvas2D>().preventingDrag = false;
+            GetComponent<Canvas2D>().preventingZoom = false;
             SelectMap();
+        }
+
+        if (Input.GetMouseButtonDown(0) && !canSelect)
+        {
+            outline.SetActive(false);
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -53,6 +60,7 @@ public class MapHandler : MonoBehaviourPun
     private void SelectMap()
     {
         GetComponentInParent<MapButtons>().map = mapPrefab;
+        outline.SetActive(true);
 
         // Showing buttons
         acceptButton.SetActive(true);
