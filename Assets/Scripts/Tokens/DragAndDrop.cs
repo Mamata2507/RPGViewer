@@ -25,6 +25,7 @@ public class DragAndDrop : MonoBehaviourPun
     // Networking variables (hiding in inspector)
     [HideInInspector] public Photon.Realtime.Player originalOwner;
     [HideInInspector] public PhotonTransformViewClassic transformView;
+    [HideInInspector] public string myName;
 
     // Photon View of this token
     private new PhotonView photonView;
@@ -176,6 +177,24 @@ public class DragAndDrop : MonoBehaviourPun
         {
             GetComponentInChildren<SpriteRenderer>().gameObject.transform.localScale = new Vector3(grid.cellWidth / increment, grid.cellWidth / increment, 1);
             GetComponent<CircleCollider2D>().radius = (grid.cellWidth + grid.cellWidth) / 4f;
+        }
+    }
+
+    [PunRPC]
+    private void ChangeImage(int viewID, string name)
+    {
+        Debug.Log(name);
+        if (photonView.ViewID == viewID)
+        {
+            string url = "https://storage.googleapis.com/rpgviewer/Tokens/" + name + ".png";
+            WebRequest.GetTexture(url, (string error) =>
+            {
+                Debug.Log("Error: " + error);
+            }, (Texture2D texture) =>
+            {
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                GetComponentInChildren<SpriteRenderer>().sprite = sprite;
+            });
         }
     }
 }

@@ -9,7 +9,6 @@ public class DragAndInstantiate : MonoBehaviourPunCallbacks
 
     // Currently instantiated token
     private GameObject token;
-    private float tokenNumber;
 
     // Dragging of the token
     public bool isDragging = false;
@@ -30,6 +29,7 @@ public class DragAndInstantiate : MonoBehaviourPunCallbacks
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
+        photonView.ViewID = PhotonNetwork.AllocateViewID(false);
     }
 
     private void Update()
@@ -64,8 +64,10 @@ public class DragAndInstantiate : MonoBehaviourPunCallbacks
         token = PhotonNetwork.Instantiate(@"Prefabs\Tokens\" + tokenTemplate.name, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
 
         token.GetComponentInChildren<SpriteRenderer>().sprite = GetComponent<Image>().sprite;
-        token.name = this.gameObject.name + " " + tokenNumber;
-        tokenNumber++;
+        token.GetComponent<DragAndDrop>().myName = gameObject.name;
+
+        photonView.RPC("ChangeName", RpcTarget.AllBuffered, token.GetComponent<DragAndDrop>().photonView.ViewID);
+        photonView.RPC("ChangeImage", RpcTarget.AllBuffered, token.GetComponent<DragAndDrop>().photonView.ViewID);
     }
 
     /// <summary>

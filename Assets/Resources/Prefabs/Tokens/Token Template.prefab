@@ -2045,6 +2045,7 @@ MonoBehaviour:
   snapToGrid: 1
   infoBox: {fileID: 2206245592679491498}
   transformView: {fileID: 0}
+  myName: 
   grid: {fileID: 0}
 --- !u!114 &8704266109904137056
 MonoBehaviour:
