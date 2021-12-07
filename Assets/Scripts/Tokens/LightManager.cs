@@ -20,7 +20,7 @@ public class LightManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void HideLights()
     {
-        lights = GameObject.FindGameObjectsWithTag("FOWLight");
+        lights = GameObject.FindGameObjectsWithTag("FOW Light");
 
         foreach (var light in lights)
         {

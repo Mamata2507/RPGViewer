@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class DragAndInstantiate : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class DragAndInstantiate : MonoBehaviour
     public bool isDragging = false;
     private bool canDrag;
 
+    private PhotonView photonView;
+
     private void OnMouseOver()
     {
         canDrag = true;
@@ -21,6 +24,11 @@ public class DragAndInstantiate : MonoBehaviour
     private void OnMouseExit()
     {
         canDrag = false;
+    }
+
+    private void Start()
+    {
+        photonView = GetComponent<PhotonView>();
     }
 
     private void Update()
@@ -35,8 +43,8 @@ public class DragAndInstantiate : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && isDragging)
         {
             // User can now drag and zoom camera
-            GetComponent<CanvasManager>().preventingDrag = false;
-            GetComponent<CanvasManager>().preventingZoom = false;
+            GetComponent<Canvas2D>().preventingDrag = false;
+            GetComponent<Canvas2D>().preventingZoom = false;
 
             // Snapping token to grid
             token.GetComponent<DragAndDrop>().SnapToGrid();
@@ -53,6 +61,8 @@ public class DragAndInstantiate : MonoBehaviour
     {
         // Instantiating token to mouse position
         token = PhotonNetwork.Instantiate(@"Prefabs\Tokens\" + tokenTemplate.name, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+
+        token.GetComponentInChildren<SpriteRenderer>().sprite = GetComponent<Image>().sprite;
     }
 
     /// <summary>

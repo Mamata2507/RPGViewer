@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 249638568}
   m_Layer: 0
   m_Name: Grid
-  m_TagString: GridManager
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 8824607370651635563}
   - component: {fileID: 633359417758969155}
   m_Layer: 0
-  m_Name: BottomRight Corner
+  m_Name: Bottom Left Corner
   m_TagString: Bottom Corner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 6049510445470287286}
   - component: {fileID: 5117454127057403341}
   m_Layer: 0
-  m_Name: TopRight Corner
+  m_Name: Top Right Corner
   m_TagString: Top Corner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

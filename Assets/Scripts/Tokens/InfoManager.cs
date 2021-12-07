@@ -41,7 +41,7 @@ public class InfoManager : MonoBehaviour
     private void Update()
     {
         // Getting reference of grid
-        if (GameObject.FindGameObjectWithTag("Map").GetComponent<GridManager>() != null && photonView.IsMine) grid = GameObject.FindGameObjectWithTag("Map").GetComponent<GridManager>();
+        if (FindObjectOfType<GridManager>() != null && photonView.IsMine) grid = FindObjectOfType<GridManager>();
 
         UpdateLabel();
         UpdateView();
@@ -65,7 +65,7 @@ public class InfoManager : MonoBehaviour
         {
             if (int.Parse(viewInput.text) >= 0)
             {
-                LightManager.myLight.size = (grid.cellWidth + grid.cellHeight) / 2 * (int.Parse(viewInput.text) / 5) + (grid.cellWidth + grid.cellHeight) / 4;
+                LightManager.myLight.size = grid.cellWidth * (int.Parse(viewInput.text) / 5) + grid.cellHeight / 2;
             }
         }
         

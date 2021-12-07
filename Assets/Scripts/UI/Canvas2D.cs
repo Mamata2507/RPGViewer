@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CanvasManager : MonoBehaviour
+public class Canvas2D : MonoBehaviour
 {
     // Prevent zooming and moving of camera
     [SerializeField] private bool preventZoom;

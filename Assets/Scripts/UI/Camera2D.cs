@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class Camera2D : MonoBehaviour
 {
     // Camera zoom
     [SerializeField] private float zoomSpeed;
@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     [HideInInspector] public bool canDrag = true;
 
     // GameObjects preventing camera zooming or moving
-    private CanvasManager[] canvasHandlers;
+    private Canvas2D[] canvasHandlers;
 
     void Update()
     {
@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
     /// </summary>
     private void CheckHandlers()
     {
-        canvasHandlers = FindObjectsOfType<CanvasManager>();
+        canvasHandlers = FindObjectsOfType<Canvas2D>();
 
         canDrag = true;
         canZoom = true;

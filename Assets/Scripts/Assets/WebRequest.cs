@@ -2,9 +2,11 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
+using Photon.Pun;
 
 public static class WebRequest
 {
+    #region init
     // Creating game object to be able to use Coroutines
     private class WebRequestMonoBehaviour : MonoBehaviour { }
     private static WebRequestMonoBehaviour webRequestMonoBehaviour;
@@ -20,9 +22,50 @@ public static class WebRequest
             webRequestMonoBehaviour = gameObject.AddComponent<WebRequestMonoBehaviour>();
         }
     }
+    #endregion
+
+    #region maps
+    /// <summary>
+    /// Getting AssetBundle from internet
+    /// </summary>
+    public static void GetBundle(string url, Action<string> onError, Action<UnityEngine.Object[]> onSuccess)
+    {
+        Init();
+        webRequestMonoBehaviour.StartCoroutine(GetBundleCoroutine(url, onError, onSuccess));
+    }
 
     /// <summary>
-    /// Getting image over the internet
+    /// Returning AssetBundle on success
+    /// </summary>
+    private static IEnumerator GetBundleCoroutine(string url, Action<string> onError, Action<UnityEngine.Object[]> onSuccess)
+    {
+        Init();
+        using (UnityWebRequest unityWebRequest = UnityWebRequestAssetBundle.GetAssetBundle(url))
+        {
+            yield return unityWebRequest.SendWebRequest();
+
+            // Informing if error occured while downloading assets
+            if (unityWebRequest.result != UnityWebRequest.Result.Success)
+            {
+                onError(unityWebRequest.error);
+            }
+            else
+            {
+                // Returning list of assets
+                AssetBundle mapBundle = DownloadHandlerAssetBundle.GetContent(unityWebRequest);
+                UnityEngine.Object[] maps = mapBundle.LoadAllAssets();
+
+                yield return new WaitUntil(() => maps.Length > 0);
+
+                onSuccess(maps);
+            }
+        }
+    }
+    #endregion
+
+    #region tokens
+    /// <summary>
+    /// Getting image from internet
     /// </summary>
     public static void GetTexture(string url, Action<string> onError, Action<Texture2D> onSuccess)
     {
@@ -31,7 +74,7 @@ public static class WebRequest
     }
 
     /// <summary>
-    /// Getting string over the internet
+    /// Getting string from internet
     /// </summary>
     public static void GetString(string url, Action<string> onError, Action<string> onSuccess)
     {
@@ -50,7 +93,7 @@ public static class WebRequest
             yield return unityWebRequest.SendWebRequest();
 
             // Informing if error occured
-            if (unityWebRequest.isNetworkError || unityWebRequest.isHttpError)
+            if (unityWebRequest.result == UnityWebRequest.Result.ConnectionError || unityWebRequest.result == UnityWebRequest.Result.ProtocolError)
             {
                 onError(unityWebRequest.error);
             }
@@ -74,7 +117,7 @@ public static class WebRequest
             yield return unityWebRequest.SendWebRequest();
 
             // Informing if error occured
-            if (unityWebRequest.isNetworkError || unityWebRequest.isHttpError)
+            if (unityWebRequest.result == UnityWebRequest.Result.ConnectionError || unityWebRequest.result == UnityWebRequest.Result.ProtocolError)
             {
                 onError(unityWebRequest.error);
             }
@@ -85,4 +128,5 @@ public static class WebRequest
             }
         }
     }
+    #endregion
 }

@@ -42,8 +42,8 @@ public class MapHandler : MonoBehaviourPun
 
         if (Input.GetMouseButtonUp(0))
         {
-            GetComponent<CanvasManager>().preventingDrag = false;
-            GetComponent<CanvasManager>().preventingZoom = false;
+            GetComponent<Canvas2D>().preventingDrag = false;
+            GetComponent<Canvas2D>().preventingZoom = false;
         }
     }
 

@@ -8,11 +8,8 @@ TagManager:
   - Map
   - Top Corner
   - Bottom Corner
-  - CameraHandler
   - FOW Light
   - Regular Light
-  - FOWLight
-  - GridManager
   - AcceptButton
   - CancelButton
   layers:

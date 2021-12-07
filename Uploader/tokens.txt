@@ -1,1 +1,1 @@
-/C gsutil -h "Cache-Control:no-cache" cp -r "C:\Projects\GitHub\Repositories\RPGViewer\Assets\Resources\Sprites\Tokens\*.png" gs://rpgviewer
+/C gsutil -h "Cache-Control:no-cache" cp -r "C:\Projects\GitHub\Repositories\RPGViewer\Assets\Resources\Sprites\Tokens\*.png" gs://rpgviewer/Tokens

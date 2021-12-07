@@ -18,7 +18,6 @@ public class LoadMaps : MonoBehaviour
     {
         if (Assets.maps.Count > 0 && !mapsLoaded)
         {
-            Debug.Log(Assets.maps.Count);
             maps = Assets.maps;
             mapsLoaded = true;
         }

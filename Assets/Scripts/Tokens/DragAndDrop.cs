@@ -29,7 +29,7 @@ public class DragAndDrop : MonoBehaviourPun
     private new PhotonView photonView;
 
     // Reference of the grid
-    private GridManager grid;
+    public GridManager grid;
 
     private void OnMouseDown()
     {
@@ -92,15 +92,14 @@ public class DragAndDrop : MonoBehaviourPun
     private void Update()
     {
         // Getting reference of the grid
-        if (GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>() != null && photonView.IsMine) grid = GameObject.FindGameObjectWithTag("GridManager").GetComponent<GridManager>();
+        if (FindObjectOfType<GridManager>() != null && photonView.IsMine) grid = FindObjectOfType<GridManager>();
 
-        // Scaling token according to grid size
-        if (grid != null) transform.localScale = new Vector3(grid.cellWidth, grid.cellWidth, 1);
+        if (grid != null) SetScale((GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f);
 
         // Drag token if it's mine
         if (isDragging && photonView.IsMine) DragToken();
 
-        if (Input.GetMouseButtonDown(0) && infoBox.activeInHierarchy == true && !infoBox.GetComponent<CanvasManager>().preventingDrag)
+        if (Input.GetMouseButtonDown(0) && infoBox.activeInHierarchy == true && !infoBox.GetComponent<Canvas2D>().preventingDrag)
         {
             infoBox.SetActive(false);
         }
@@ -151,6 +150,18 @@ public class DragAndDrop : MonoBehaviourPun
 
             // Synchronizing position to other clients
             transformView.m_PositionModel.SynchronizeEnabled = true;
+        }
+    }
+
+    /// <summary>
+    /// Scaling token size to match grid size
+    /// </summary>
+    public void SetScale(float increment)
+    {
+        if (grid != null)
+        {
+            GetComponentInChildren<SpriteRenderer>().gameObject.transform.localScale = new Vector3(grid.cellWidth / increment, grid.cellWidth / increment, 1);
+            GetComponent<CircleCollider2D>().radius = (grid.cellWidth + grid.cellWidth) / 4f;
         }
     }
 }

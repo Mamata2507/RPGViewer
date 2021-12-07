@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 
-public class UIManager : MonoBehaviour
+public class WindowsManager : MonoBehaviour
 {
     // Application resolution
     private Resolution fullResolution;

@@ -47,7 +47,6 @@ public class LoadTokens : MonoBehaviour
     /// </summary>
     private void DisplayTokens()
     {
-        Debug.Log(tokens.Count);
         for (int i = 0; i < tokens.Count; i++)
         {
             GameObject instantiatedIcon = Instantiate(tokenTemplate, this.transform);
@@ -59,7 +58,7 @@ public class LoadTokens : MonoBehaviour
                 Debug.Log("Error: " + error);
             }, (Texture2D texture) =>
             {
-                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0f, 0f));
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                 instantiatedIcon.GetComponent<Image>().sprite = sprite;
             });
         }
