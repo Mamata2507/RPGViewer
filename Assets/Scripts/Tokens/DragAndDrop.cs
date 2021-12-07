@@ -25,10 +25,10 @@ public class DragAndDrop : MonoBehaviourPun
     // Networking variables (hiding in inspector)
     [HideInInspector] public Photon.Realtime.Player originalOwner;
     [HideInInspector] public PhotonTransformViewClassic transformView;
-    [HideInInspector] public string myName;
 
     // Photon View of this token
     private new PhotonView photonView;
+    private bool nameChanged = false;
 
     // Reference of the grid
     public GridManager grid;
@@ -99,6 +99,13 @@ public class DragAndDrop : MonoBehaviourPun
             grid = FindObjectOfType<GridManager>();
 
             GetComponent<LightManager>().myLight.size = grid.cellWidth * (60 / 5) + grid.cellHeight / 2;
+
+        }
+
+        if (grid != null && !nameChanged)
+        {
+            photonView.RPC("ChangeName", RpcTarget.AllBuffered, photonView.ViewID, gameObject.name);
+            nameChanged = true;
         }
 
         if (grid != null) SetScale((GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f);
@@ -181,6 +188,16 @@ public class DragAndDrop : MonoBehaviourPun
     }
 
     [PunRPC]
+    private void ChangeName(int viewID, string name)
+    {
+        if (photonView.ViewID == viewID)
+        {
+            gameObject.name = name;
+            photonView.RPC("ChangeImage", RpcTarget.AllBuffered, photonView.ViewID, name);
+        }
+    }
+
+    [PunRPC]
     private void ChangeImage(int viewID, string name)
     {
         Debug.Log(name);
@@ -194,7 +211,18 @@ public class DragAndDrop : MonoBehaviourPun
             {
                 Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                 GetComponentInChildren<SpriteRenderer>().sprite = sprite;
+                photonView.RPC("ChangeScale", RpcTarget.AllBuffered, photonView.ViewID, (GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f);
             });
+        }
+    }
+
+    [PunRPC]
+    private void ChangeScale(int viewID, float increment)
+    {
+        if (photonView.ViewID == viewID)
+        {
+            GetComponentInChildren<SpriteRenderer>().gameObject.transform.localScale = new Vector3(grid.cellWidth / increment, grid.cellWidth / increment, 1);
+            GetComponent<CircleCollider2D>().radius = (grid.cellWidth + grid.cellWidth) / 4f;
         }
     }
 }
