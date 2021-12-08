@@ -1,6 +1,5 @@
 using UnityEngine;
 using Photon.Pun;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 using System.Collections;
 
 public class DragAndDrop : MonoBehaviourPun
@@ -203,16 +202,16 @@ public class DragAndDrop : MonoBehaviourPun
         Debug.Log(name);
         if (photonView.ViewID == viewID)
         {
-            string url = "https://storage.googleapis.com/rpgviewer/Tokens/" + name + ".png";
-            WebRequest.GetTexture(url, (string error) =>
+            foreach (var sprite in Assets.textures)
             {
-                Debug.Log("Error: " + error);
-            }, (Texture2D texture) =>
-            {
-                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-                GetComponentInChildren<SpriteRenderer>().sprite = sprite;
-                photonView.RPC("ChangeScale", RpcTarget.AllBuffered, photonView.ViewID, (GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f);
-            });
+                if (sprite.ToString() == name)
+                {
+
+                    GetComponentInChildren<SpriteRenderer>().sprite = sprite;
+                    photonView.RPC("ChangeScale", RpcTarget.AllBuffered, photonView.ViewID, (sprite.texture.width + sprite.texture.height) / 200f);
+                }
+            }
+
         }
     }
 

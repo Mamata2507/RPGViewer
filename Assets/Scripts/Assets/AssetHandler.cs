@@ -29,8 +29,22 @@ public class AssetHandler : MonoBehaviour
                 if (image.Contains(".png"))
                 {
                     Assets.AddToken(GetBetween(image, "", ".png"));
+                    GetSprites(GetBetween(image, "", ".png"));
                 }
             }
+        });
+    }
+
+    private void GetSprites(string name)
+    {
+        string url = "https://storage.googleapis.com/rpgviewer/Tokens/" + name + ".png";
+        WebRequest.GetTexture(url, (string error) =>
+        {
+            Debug.Log("Error: " + error);
+        }, (Texture2D texture) =>
+        {
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            Assets.AddTexture(sprite);
         });
     }
 

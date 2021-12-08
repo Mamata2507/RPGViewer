@@ -6,6 +6,9 @@ public static class Assets
     [Tooltip("Returns tokens as list of strings")]
     public static List<string> tokens = new List<string>();
 
+    [Tooltip("Returns tokens as list of sprites")]
+    public static List<Sprite> textures = new List<Sprite>();
+
     [Tooltip("Returns maps as list of GameObjects")]
     public static List<GameObject> maps = new List<GameObject>();
 
@@ -23,5 +26,13 @@ public static class Assets
     public static void AddToken(string token)
     {
         tokens.Add(token);
+    }
+
+    /// <summary>
+    /// Adds a token as sprite
+    /// </summary>
+    public static void AddTexture(Sprite sprite)
+    {
+        textures.Add(sprite);
     }
 }
