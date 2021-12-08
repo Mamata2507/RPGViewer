@@ -1,18 +1,24 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Photon.Pun;
 
 public class WindowsManager : MonoBehaviour
 {
+    #region variables
     // Application resolution
     private Resolution fullResolution;
-    private bool isWindowed;
 
+    // Handle windowed mode
+    private bool isWindowed;
+    #endregion
+
+    #region Start & Update
     private void Start()
     {
+        // Setting full resolution of screen
+        fullResolution = Screen.currentResolution;
+
+        // Start in windowed mode
         isWindowed = true;
         Screen.fullScreen = false;
-        fullResolution = Screen.currentResolution;
         Screen.SetResolution(fullResolution.width / 2, fullResolution.height / 2, false);
     }
 
@@ -26,7 +32,9 @@ public class WindowsManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
         }
     }
+    #endregion
 
+    #region Handle Window
     /// <summary>
     /// Handling fullscreen and windowed modes
     /// </summary>
@@ -39,21 +47,26 @@ public class WindowsManager : MonoBehaviour
             {
                 case true:
                 {
-                    // Setting game to fullscreen, and restoring to full resolution
+                    // Setting game to fullscreen
                     isWindowed = false;
                     Screen.fullScreen = true;
+                    
+                    // Setting game to run on full resolution
                     Screen.SetResolution(fullResolution.width, fullResolution.height, true);
                     break;
                 }
                 case false:
                 {
-                    // Setting game to windowed mode, half of the resolution of fullscreen
+                    // Setting game to windowed mode
                     isWindowed = true;
                     Screen.fullScreen = false;
+
+                    // Setting game to run on half of the initial resolution
                     Screen.SetResolution(fullResolution.width / 2, fullResolution.height / 2, false);
                     break;
                 }
             }
         }
     }
+    #endregion
 }

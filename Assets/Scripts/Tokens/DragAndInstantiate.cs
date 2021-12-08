@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class DragAndInstantiate : MonoBehaviourPunCallbacks
 {
+    #region Variables
     // Teplate to instantiate
     [SerializeField] private GameObject tokenTemplate;
 
@@ -14,8 +15,10 @@ public class DragAndInstantiate : MonoBehaviourPunCallbacks
     public bool isDragging = false;
     private bool canDrag;
 
-    private PhotonView photonView;
+    private new PhotonView photonView;
+    #endregion
 
+    #region Mouse Input
     private void OnMouseOver()
     {
         canDrag = true;
@@ -25,7 +28,9 @@ public class DragAndInstantiate : MonoBehaviourPunCallbacks
     {
         canDrag = false;
     }
+    #endregion
 
+    #region Start & Update
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
@@ -54,7 +59,9 @@ public class DragAndInstantiate : MonoBehaviourPunCallbacks
         }
         if (isDragging) DragToken();
     }
+    #endregion
 
+    #region Instantiation
     /// <summary>
     /// Instantiating this token 
     /// </summary>
@@ -63,10 +70,13 @@ public class DragAndInstantiate : MonoBehaviourPunCallbacks
         // Instantiating token to mouse position
         token = PhotonNetwork.Instantiate(@"Prefabs\Tokens\" + tokenTemplate.name, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
 
+        // Setting token name and sprite
         token.GetComponentInChildren<SpriteRenderer>().sprite = GetComponent<Image>().sprite;
         token.name = gameObject.name;
     }
+    #endregion
 
+    #region Dragging
     /// <summary>
     /// Dragging token with mouse position
     /// </summary>
@@ -80,4 +90,5 @@ public class DragAndInstantiate : MonoBehaviourPunCallbacks
         // Moving token to mouse position
         token.transform.position = mousePos;
     }
+    #endregion
 }

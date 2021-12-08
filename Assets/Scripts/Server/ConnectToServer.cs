@@ -6,13 +6,30 @@ using System.Collections;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
+    #region Variables
     // Header (Connecting...)
     [SerializeField] private TMP_Text header;
+    #endregion
 
+    #region Start & Update
     private void Start()
     {
+        // Update Header
         StartCoroutine(UpdateHeader());
+
+        // Start connecting to server
         Connect();
+    }
+    #endregion
+
+    #region Connection
+    /// <summary>
+    /// Connect to the server
+    /// </summary>
+    private void Connect()
+    {
+        // Connect using photon settings
+        PhotonNetwork.ConnectUsingSettings();
     }
 
     public override void OnConnectedToMaster()
@@ -26,7 +43,9 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         // Loading lobby scene
         SceneManager.LoadScene("Lobby");
     }
+    #endregion
 
+    #region Header
     /// <summary>
     /// Updating the visual of the header
     /// </summary>
@@ -45,12 +64,5 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
             StartCoroutine(UpdateHeader());
         }
     }
-
-    /// <summary>
-    /// Connect to the server
-    /// </summary>
-    private void Connect()
-    {
-        PhotonNetwork.ConnectUsingSettings();
-    }
+    #endregion
 }

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class CreateAndJoin : MonoBehaviourPunCallbacks
 {
+    #region Variables
     // Input fields to store names
     [SerializeField] private TMP_InputField createInput;
     [SerializeField] private TMP_InputField joinInput;
     [SerializeField] private TMP_InputField nickname;
+    #endregion
 
+    #region Buttons
     public void CreateRoom()
     {
         // Creating room with specific name
@@ -20,11 +23,16 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         // Joining room with specific name
         if (joinInput.text != "" && nickname.text != "") PhotonNetwork.JoinRoom(joinInput.text);
     }
+    #endregion
 
+    #region Connection
     public override void OnJoinedRoom()
     {
-        // Loading game scene
+        // Settin custom nickname
         PhotonNetwork.NickName = nickname.text;
+
+        // Loading game scene
         PhotonNetwork.LoadLevel("Game");
     }
+    #endregion
 }

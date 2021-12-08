@@ -4,6 +4,7 @@ using System.Collections;
 
 public class DragAndDrop : MonoBehaviourPun
 {
+    #region Variables
     // Dragging and pressing of token (hiding in inspector)
     [HideInInspector] public bool isDragging = false;
     [HideInInspector] public bool isPressing = false;
@@ -31,7 +32,9 @@ public class DragAndDrop : MonoBehaviourPun
 
     // Reference of the grid
     public GridManager grid;
+    #endregion
 
+    #region Mouse Input
     private void OnMouseDown()
     {
         // Checking if info box is open
@@ -78,7 +81,9 @@ public class DragAndDrop : MonoBehaviourPun
         // Transfer ownership of this token back to the original owner
         if (photonView.Owner != originalOwner) photonView.TransferOwnership(originalOwner);
     }
+    #endregion
 
+    #region Start & Update
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
@@ -125,7 +130,9 @@ public class DragAndDrop : MonoBehaviourPun
             infoBox.SetActive(false);
         }
     }
+    #endregion
 
+    #region Dragging
     /// <summary>
     /// Checking if user wants to move the token or open info box
     /// </summary>
@@ -173,7 +180,9 @@ public class DragAndDrop : MonoBehaviourPun
             transformView.m_PositionModel.SynchronizeEnabled = true;
         }
     }
+    #endregion
 
+    #region Scaling
     /// <summary>
     /// Scaling token size to match grid size
     /// </summary>
@@ -185,7 +194,9 @@ public class DragAndDrop : MonoBehaviourPun
             GetComponent<CircleCollider2D>().radius = (grid.cellWidth + grid.cellWidth) / 4f;
         }
     }
+    #endregion
 
+    #region RPC
     [PunRPC]
     private void ChangeName(int viewID, string name)
     {
@@ -224,4 +235,5 @@ public class DragAndDrop : MonoBehaviourPun
             GetComponent<CircleCollider2D>().radius = (grid.cellWidth + grid.cellWidth) / 4f;
         }
     }
+    #endregion
 }

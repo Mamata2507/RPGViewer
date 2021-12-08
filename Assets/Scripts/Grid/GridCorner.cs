@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class GridCorner : MonoBehaviour
 {
+    #region Variables
     // Position of top and bottom corners
     [SerializeField] private Transform topCorner;
     [SerializeField] private Transform bottomCorner;
+    #endregion
 
+    #region Gizmos
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -26,4 +29,5 @@ public class GridCorner : MonoBehaviour
             Gizmos.DrawLine(transform.position, new Vector2(topCorner.position.x, transform.position.y));
         }
     }
+    #endregion
 }

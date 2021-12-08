@@ -3,17 +3,22 @@ using Photon.Pun;
 
 public class LightManager : MonoBehaviourPunCallbacks
 {
+    #region Variables
     // All lights in scene
     private GameObject[] lights;
 
     // This token's light
     public FunkyCode.Light2D myLight;
+    #endregion
 
+    #region Start & Update
     private void Start()
     {
         photonView.RPC("HideLights", RpcTarget.All);
     }
+    #endregion
 
+    #region RPC
     /// <summary>
     /// Hiding other clients lights
     /// </summary>
@@ -28,12 +33,5 @@ public class LightManager : MonoBehaviourPunCallbacks
             if (!light.GetComponentInParent<PhotonView>().IsMine) light.SetActive(false);
         }
     }
-
-    /// <summary>
-    /// Enabling and disaling my light
-    /// </summary>
-    public void UpdateMyLight(bool toggle)
-    {
-       myLight.enabled = toggle;
-    }
+    #endregion
 }

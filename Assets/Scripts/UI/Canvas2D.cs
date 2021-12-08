@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Canvas2D : MonoBehaviour
 {
+    #region Variables
     // Prevent zooming and moving of camera
     [SerializeField] private bool preventZoom;
     [SerializeField] private bool preventDrag;
@@ -9,7 +10,9 @@ public class Canvas2D : MonoBehaviour
     // Currently ppreventing zoom and drag (hiding in inspector)
     [HideInInspector] public bool preventingZoom;
     [HideInInspector] public bool preventingDrag;
+    #endregion
 
+    #region Mouse Input
     private void OnMouseOver()
     {
         // Preventing camera controlling when dragging tokens
@@ -68,4 +71,5 @@ public class Canvas2D : MonoBehaviour
             if (preventDrag) preventingDrag = false;
         } 
     }
+    #endregion
 }

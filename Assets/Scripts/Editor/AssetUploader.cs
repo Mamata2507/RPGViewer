@@ -3,6 +3,7 @@ using UnityEditor;
 
 public class AssetUploader : Editor
 {
+    #region Tokens
     /// <summary>
     /// Upload tokens to Google Cloud Storage as images
     /// </summary>
@@ -18,7 +19,9 @@ public class AssetUploader : Editor
         // Waiting until all tokens has been uploaded
         process.WaitForExit();
     }
+    #endregion
 
+    #region Maps
     /// <summary>
     /// Upload maps to Google Cloud Storage as AssetBundles
     /// </summary>
@@ -40,4 +43,5 @@ public class AssetUploader : Editor
         // Announcing runtime builds to reload maps
         if (File.ReadAllText(@"C:\Projects\GitHub\Repositories\RPGViewer\AssetBundles\update.txt") == "false") File.WriteAllText(@"C:\Projects\GitHub\Repositories\RPGViewer\AssetBundles\update.txt", "true");
     }
+    #endregion
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    #region Variables
     // Position of top and bottom corners
     [Header("Grid Area")]
     [SerializeField] private Transform topCorner;
@@ -18,9 +19,10 @@ public class GridManager : MonoBehaviour
 
     // Size of each cell
     // These need to be public, because they're needed when calculating the view distance
-    public float cellWidth;
-    public float cellHeight;
+    public float cellWidth, cellHeight;
+    #endregion
 
+    #region Start & Update
     private void Start()
     {
         // Dividing grid area to as many parts as grid size (x - axis)
@@ -50,7 +52,9 @@ public class GridManager : MonoBehaviour
             cellHeight = height / gridSize.y;
         }
     }
+    #endregion
 
+    #region Gizmos
     // Grid calculations on editor
     private void OnDrawGizmos()
     {
@@ -73,12 +77,15 @@ public class GridManager : MonoBehaviour
                 // Dividing grid area to as many parts as grid size (y - axis)
                 for (float y = bottomCorner.position.y; y < topCorner.position.y; y += cellHeight)
                 {
+                    // Drawing cell for each grid position
                     Gizmos.DrawWireCube(new Vector2(x + cellWidth / 2, y + cellHeight / 2), new Vector2(cellWidth, cellHeight));
                 }
             }
         }
     }
+    #endregion
 
+    #region Closest Position
     /// <summary>
     /// Returns the position of the nearest cell to the given position
     /// </summary>
@@ -111,6 +118,9 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+
+        // Returnig the position of closest cell as Vector2
         return returnPosition;
     }
+    #endregion
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public static class Assets
 {
+    #region Lists
     [Tooltip("Returns tokens as list of strings")]
     public static List<string> tokens = new List<string>();
 
@@ -11,7 +12,9 @@ public static class Assets
 
     [Tooltip("Returns maps as list of GameObjects")]
     public static List<GameObject> maps = new List<GameObject>();
+    #endregion
 
+    #region List Handlers
     /// <summary>
     /// Adds a map as GameObject
     /// </summary>
@@ -35,4 +38,5 @@ public static class Assets
     {
         textures.Add(sprite);
     }
+    #endregion
 }

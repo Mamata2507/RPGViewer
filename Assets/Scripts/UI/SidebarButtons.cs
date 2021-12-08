@@ -3,9 +3,12 @@ using Photon.Pun;
 
 public class SidebarButtons : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private GameObject maps, tokens;
     [SerializeField] private GameObject mapButton;
+    #endregion
 
+    #region Start & Update
     private void Start()
     {
         if (!PhotonNetwork.IsMasterClient) mapButton.SetActive(false);
@@ -28,7 +31,9 @@ public class SidebarButtons : MonoBehaviour
             maps.SetActive(false);
         }
     }
+    #endregion
 
+    #region Buttons
     public void OpenTokens()
     {
         tokens.SetActive(!tokens.activeInHierarchy);
@@ -40,4 +45,5 @@ public class SidebarButtons : MonoBehaviour
         maps.SetActive(!maps.activeInHierarchy);
         tokens.SetActive(false);
     }
+    #endregion
 }

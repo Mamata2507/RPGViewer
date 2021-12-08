@@ -2,29 +2,29 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
-using Photon.Pun;
 
 public static class WebRequest
 {
-    #region init
+    #region Init
     // Creating game object to be able to use Coroutines
     private class WebRequestMonoBehaviour : MonoBehaviour { }
     private static WebRequestMonoBehaviour webRequestMonoBehaviour;
 
     /// <summary>
-    /// Creating Game Object and attaching MonoBehaviour script to it
+    /// Adding the ability to use MonoBehaviuour methods
     /// </summary>
     private static void Init()
     {
         if (webRequestMonoBehaviour == null)
         {
+            // Creating Game Object and attaching MonoBehaviour script to it
             GameObject gameObject = new GameObject("WebRequest");
             webRequestMonoBehaviour = gameObject.AddComponent<WebRequestMonoBehaviour>();
         }
     }
     #endregion
 
-    #region maps
+    #region Maps
     /// <summary>
     /// Getting AssetBundle from internet
     /// </summary>
@@ -42,6 +42,7 @@ public static class WebRequest
         Init();
         using (UnityWebRequest unityWebRequest = UnityWebRequestAssetBundle.GetAssetBundle(url))
         {
+            // Connecting to url
             yield return unityWebRequest.SendWebRequest();
 
             // Informing if error occured while downloading assets
@@ -63,7 +64,7 @@ public static class WebRequest
     }
     #endregion
 
-    #region tokens
+    #region Tokens
     /// <summary>
     /// Getting image from internet
     /// </summary>
@@ -90,6 +91,7 @@ public static class WebRequest
         Init();
         using (UnityWebRequest unityWebRequest = UnityWebRequestTexture.GetTexture(url))
         {
+            // Connecting to url
             yield return unityWebRequest.SendWebRequest();
 
             // Informing if error occured
@@ -114,6 +116,7 @@ public static class WebRequest
         Init();
         using (UnityWebRequest unityWebRequest = UnityWebRequest.Get(url))
         {
+            // Connecting to url
             yield return unityWebRequest.SendWebRequest();
 
             // Informing if error occured

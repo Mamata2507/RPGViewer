@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Camera2D : MonoBehaviour
 {
+    #region Variables
     // Camera zoom
     [SerializeField] private float zoomSpeed;
     [SerializeField] private float minZoom;
@@ -18,14 +16,18 @@ public class Camera2D : MonoBehaviour
 
     // GameObjects preventing camera zooming or moving
     private Canvas2D[] canvasHandlers;
+    #endregion
 
+    #region Start & Update
     void Update()
     {
         CheckHandlers();
         if (canZoom) HandleZoom(Input.GetAxis("Mouse ScrollWheel"));
         if (canDrag) HandleMovement();
     }
+    #endregion
 
+    #region Check  Abilities
     /// <summary>
     /// Check if camera can be moved or zoomed
     /// </summary>
@@ -48,7 +50,9 @@ public class Camera2D : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Camera Zoom
     /// <summary>
     /// Zooming camera with mouse wheel
     /// </summary>
@@ -60,7 +64,9 @@ public class Camera2D : MonoBehaviour
             Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - increment * zoomSpeed, minZoom, maxZoom);
         }
     }
+    #endregion
 
+    #region Camrea Movement
     /// <summary>
     /// Moving camera with dragging
     /// </summary>
@@ -105,4 +111,5 @@ public class Camera2D : MonoBehaviour
             zoomingWithMobile = false;
         }
     }
+    #endregion
 }
