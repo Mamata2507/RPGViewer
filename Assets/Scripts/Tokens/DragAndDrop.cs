@@ -28,10 +28,12 @@ public class DragAndDrop : MonoBehaviourPun
 
     // Photon View of this token
     private new PhotonView photonView;
-    private bool nameChanged = false;
 
     // Reference of the grid
     public GridManager grid;
+
+    // Radius of circle collider
+    private float radius;
     #endregion
 
     #region Mouse Input
@@ -103,17 +105,9 @@ public class DragAndDrop : MonoBehaviourPun
             grid = FindObjectOfType<GridManager>();
 
             GetComponent<LightManager>().myLight.size = grid.cellWidth * (60 / 5) + grid.cellHeight / 2;
-
-        }
-
-        if (grid != null && !nameChanged)
-        {
-            photonView.RPC("ChangeName", RpcTarget.AllBuffered, photonView.ViewID, gameObject.name);
-            nameChanged = true;
         }
 
         if (grid != null) SetScale((GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f);
-
 
         // Drag token if it's mine
         if (isDragging && photonView.IsMine) DragToken();
@@ -191,46 +185,48 @@ public class DragAndDrop : MonoBehaviourPun
         if (grid != null)
         {
             GetComponentInChildren<SpriteRenderer>().gameObject.transform.localScale = new Vector3(grid.cellWidth / increment, grid.cellWidth / increment, 1);
-            GetComponent<CircleCollider2D>().radius = (grid.cellWidth + grid.cellWidth) / 4f;
+
+            if (radius != (grid.cellWidth + grid.cellWidth) / 4f)
+            {
+                photonView.RPC("ChangeScale", RpcTarget.AllBuffered, photonView.ViewID);
+            }
         }
+    }
+
+    /// <summary>
+    /// Set values for tokens
+    /// </summary>
+    public void SetValues(string name)
+    {
+        photonView.RPC("ChangeValues", RpcTarget.AllBuffered, GetComponent<PhotonView>().ViewID, name);
     }
     #endregion
 
     #region RPC
     [PunRPC]
-    private void ChangeName(int viewID, string name)
+    private void ChangeValues(int viewID, string name)
     {
         if (photonView.ViewID == viewID)
         {
             gameObject.name = name;
-            photonView.RPC("ChangeImage", RpcTarget.AllBuffered, photonView.ViewID, name);
-        }
-    }
 
-    [PunRPC]
-    private void ChangeImage(int viewID, string name)
-    {
-        Debug.Log(name);
-        if (photonView.ViewID == viewID)
-        {
             foreach (var sprite in Assets.textures)
             {
                 if (sprite.ToString() == name)
                 {
-
                     GetComponentInChildren<SpriteRenderer>().sprite = sprite;
-                    photonView.RPC("ChangeScale", RpcTarget.AllBuffered, photonView.ViewID, (sprite.texture.width + sprite.texture.height) / 200f);
                 }
             }
-
         }
     }
 
     [PunRPC]
-    private void ChangeScale(int viewID, float increment)
+    private void ChangeScale(int viewID)
     {
         if (photonView.ViewID == viewID)
         {
+            float increment = (GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f;
+
             GetComponentInChildren<SpriteRenderer>().gameObject.transform.localScale = new Vector3(grid.cellWidth / increment, grid.cellWidth / increment, 1);
             GetComponent<CircleCollider2D>().radius = (grid.cellWidth + grid.cellWidth) / 4f;
         }

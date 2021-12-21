@@ -70,9 +70,8 @@ public class DragAndInstantiate : MonoBehaviourPunCallbacks
         // Instantiating token to mouse position
         token = PhotonNetwork.Instantiate(@"Prefabs\Tokens\" + tokenTemplate.name, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
 
-        // Setting token name and sprite
-        token.GetComponentInChildren<SpriteRenderer>().sprite = GetComponent<Image>().sprite;
-        token.name = gameObject.name;
+        token.GetComponent<DragAndDrop>().SetValues(gameObject.name);
+
     }
     #endregion
 
