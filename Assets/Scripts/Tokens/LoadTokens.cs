@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,7 +40,12 @@ public class LoadTokens : MonoBehaviour
     public void ReloadTokens()
     {
         tokens.Clear();
-        tokens = Assets.tokens;
+
+        foreach (DictionaryEntry entry in Assets.tokens)
+        {
+            tokens.Add((string)entry.Value);
+        }
+
         ScaleRect();
         DisplayTokens();
 

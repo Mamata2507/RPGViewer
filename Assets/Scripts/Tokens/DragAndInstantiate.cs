@@ -1,6 +1,5 @@
 using UnityEngine;
 using Photon.Pun;
-using UnityEngine.UI;
 
 public class DragAndInstantiate : MonoBehaviourPunCallbacks
 {
@@ -54,6 +53,9 @@ public class DragAndInstantiate : MonoBehaviourPunCallbacks
 
             // Snapping token to grid
             token.GetComponent<DragAndDrop>().SnapToGrid();
+
+            // Synchronizing position to other clients
+            token.GetComponent<DragAndDrop>().transformView.m_PositionModel.SynchronizeEnabled = true;
 
             isDragging = false;
         }

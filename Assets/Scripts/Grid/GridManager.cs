@@ -1,4 +1,5 @@
 using UnityEngine;
+using Photon.Pun;
 
 public class GridManager : MonoBehaviour
 {
@@ -121,6 +122,18 @@ public class GridManager : MonoBehaviour
 
         // Returnig the position of closest cell as Vector2
         return returnPosition;
+    }
+    #endregion
+
+    #region RPC
+    /// <summary>
+    /// Destroying current map
+    /// </summary>
+    [PunRPC]
+    private void DestroyMap()
+    {
+        // Finding and destroying curent map
+        if (GameObject.FindGameObjectWithTag("Map") != null) Destroy(GameObject.FindGameObjectWithTag("Map"));
     }
     #endregion
 }

@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 249638567}
   - component: {fileID: 249638568}
+  - component: {fileID: 1874511462569686159}
   m_Layer: 0
   m_Name: Grid
-  m_TagString: Map
+  m_TagString: Grid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,6 +52,28 @@ MonoBehaviour:
   gridCell: {fileID: 8582017078397531938, guid: cd93c5a9821ae1d47834e3876e2458c8, type: 3}
   cellWidth: 0.700175
   cellHeight: 0.7405
+--- !u!114 &1874511462569686159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249638566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &162591295865322768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,7 +1809,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2800186904121091005}
   - component: {fileID: 2800186904121090994}
-  - component: {fileID: 2896298337429440785}
   m_Layer: 0
   m_Name: Dungeon
   m_TagString: Map
@@ -1861,28 +1883,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2896298337429440785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2800186904121091004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &3047437784652692425
 GameObject:
   m_ObjectHideFlags: 0

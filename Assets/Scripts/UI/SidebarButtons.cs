@@ -11,11 +11,13 @@ public class SidebarButtons : MonoBehaviour
     #region Start & Update
     private void Start()
     {
-        if (!PhotonNetwork.IsMasterClient) mapButton.SetActive(false);
+        mapButton.SetActive(false);
     }
 
     private void Update()
     {
+        if (PhotonNetwork.IsMasterClient && Assets.maps.Count > 0 && mapButton.activeInHierarchy == false) mapButton.SetActive(true);
+
         Canvas2D[] handlers = maps.GetComponentsInChildren<Canvas2D>();
         bool canClose = true;
         foreach (var handler in handlers)

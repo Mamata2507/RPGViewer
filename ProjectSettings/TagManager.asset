@@ -11,6 +11,7 @@ TagManager:
   - FOW Light
   - Regular Light
   - AcceptButton
+  - Grid
   layers:
   - Default
   - TransparentFX

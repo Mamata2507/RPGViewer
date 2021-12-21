@@ -34,10 +34,11 @@ public class AssetHandler : MonoBehaviour
                 if (image.Contains(".png"))
                 {
                     // Adding the final name to name lists (ex. Ithar, Kvothe, Geleen...)
-                    Assets.AddToken(GetBetween(image, "", ".png"));
+                    string result = GetBetween(image, "", ".png");
+                    Assets.AddToken(result, result);
 
                     // Getting the image itself
-                    GetSprites(GetBetween(image, "", ".png"));
+                    GetSprites(result);
                 }
             }
         });
@@ -55,7 +56,7 @@ public class AssetHandler : MonoBehaviour
         {
             // Creating new sprite from texture
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            Assets.AddTexture(sprite);
+            Assets.AddTexture(name, sprite);
         });
     }
 
@@ -87,8 +88,19 @@ public class AssetHandler : MonoBehaviour
     /// </summary>
     private void GetMaps()
     {
+        string url = "";
+        
         // Downloading maps from Google Cloud Storage
-        string url = "https://storage.googleapis.com/rpgviewer/AssetBundles/maps";
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            url = "https://storage.googleapis.com/rpgviewer/AssetBundles/Android/maps";
+        }
+
+        else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            url = "https://storage.googleapis.com/rpgviewer/AssetBundles/Windows/maps";
+        }
+
         WebRequest.GetBundle(url, (string error) =>
         {
             // Informing if error occured
@@ -103,7 +115,7 @@ public class AssetHandler : MonoBehaviour
                 foreach (GameObject map in maps)
                 {
                     // Adding each asset to list of maps
-                    Assets.AddMap(map);
+                    Assets.AddMap(map.name, map);
                     pool.ResourceCache.Add(map.name, map);
                 }
             }

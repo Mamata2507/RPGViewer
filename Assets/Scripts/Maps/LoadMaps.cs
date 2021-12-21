@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,9 +23,12 @@ public class LoadMaps : MonoBehaviour
         // Getting reference of available maps
         if (Assets.maps.Count > 0 && !mapsLoaded)
         {
-            maps = Assets.maps;
-            mapsLoaded = true;
+            foreach (DictionaryEntry entry in Assets.maps)
+            {
+                maps.Add((GameObject)entry.Value);
+            }
         }
+        mapsLoaded = true;
 
         // Loading all the maps available
         if (maps.Count > 0 && loadingDone == false)

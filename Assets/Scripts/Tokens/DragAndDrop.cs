@@ -26,9 +26,6 @@ public class DragAndDrop : MonoBehaviourPun
     [HideInInspector] public Photon.Realtime.Player originalOwner;
     [HideInInspector] public PhotonTransformViewClassic transformView;
 
-    // Photon View of this token
-    private new PhotonView photonView;
-
     // Reference of the grid
     public GridManager grid;
 
@@ -39,6 +36,9 @@ public class DragAndDrop : MonoBehaviourPun
     #region Mouse Input
     private void OnMouseDown()
     {
+        // Token position is not synchronized to other clients
+        transformView.m_PositionModel.SynchronizeEnabled = false;
+
         // Checking if info box is open
         if (infoBox.activeInHierarchy == true)
         {
@@ -63,6 +63,11 @@ public class DragAndDrop : MonoBehaviourPun
             // Transferring token ownership to master (master can now move this token)
             photonView.RequestOwnership();
         }
+        if (originalOwner != photonView.Owner)
+        {
+            // Transferring token ownership to this client (client can now move this token)
+            photonView.RequestOwnership();
+        }
 
         startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -70,25 +75,24 @@ public class DragAndDrop : MonoBehaviourPun
     }
 
     public void OnMouseUp()
-    {   
+    {
+        // Token position is not synchronized to other clients
+        transformView.m_PositionModel.SynchronizeEnabled = true;
+
         isPressing = false;
 
         StopAllCoroutines();
 
         // Cheking if user has not moved the token
         if (Vector3.Distance(startPos, endPos) <= 0.1f && !closeBox && !isDragging) infoBox.SetActive(!infoBox.activeInHierarchy);
-        
-        if (isDragging) SnapToGrid();
 
-        // Transfer ownership of this token back to the original owner
-        if (photonView.Owner != originalOwner) photonView.TransferOwnership(originalOwner);
+        if (isDragging) SnapToGrid();
     }
     #endregion
 
     #region Start & Update
     private void Start()
     {
-        photonView = GetComponent<PhotonView>();
         transformView = GetComponent<PhotonTransformViewClassic>();
 
         // Setting this user to be the original owner of this token
@@ -100,14 +104,13 @@ public class DragAndDrop : MonoBehaviourPun
     private void Update()
     {
         // Getting reference of the grid
-        if (FindObjectOfType<GridManager>() != null && photonView.IsMine)
+        if (FindObjectOfType<GridManager>() != null)
         {
             grid = FindObjectOfType<GridManager>();
-
+            
+            SetScale((GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f);
             GetComponent<LightManager>().myLight.size = grid.cellWidth * (60 / 5) + grid.cellHeight / 2;
         }
-
-        if (grid != null) SetScale((GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f);
 
         // Drag token if it's mine
         if (isDragging && photonView.IsMine) DragToken();
@@ -138,7 +141,7 @@ public class DragAndDrop : MonoBehaviourPun
 
             if (Vector3.Distance(startPos, endPos) >= 0.1f)
             {
-                isDragging = true;
+                if (photonView.IsMine) isDragging = true;
             }
 
             yield return new WaitForSeconds(0.01f);
@@ -151,9 +154,6 @@ public class DragAndDrop : MonoBehaviourPun
     /// </summary>
     private void DragToken()
     {
-        // Token position is not synchronized to other clients
-        transformView.m_PositionModel.SynchronizeEnabled = false;
-
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         transform.Translate(mousePos);
     }
@@ -169,9 +169,6 @@ public class DragAndDrop : MonoBehaviourPun
         {
             // Moving token to closest cell
             transform.Translate(grid.GetClosestPosition(transform.position) - transform.position);
-
-            // Synchronizing position to other clients
-            transformView.m_PositionModel.SynchronizeEnabled = true;
         }
     }
     #endregion
@@ -188,7 +185,9 @@ public class DragAndDrop : MonoBehaviourPun
 
             if (radius != (grid.cellWidth + grid.cellWidth) / 4f)
             {
-                photonView.RPC("ChangeScale", RpcTarget.AllBuffered, photonView.ViewID);
+                radius = (grid.cellWidth + grid.cellWidth) / 4f;
+                Debug.Log(increment);
+                photonView.RPC("ChangeScale", RpcTarget.AllBuffered, photonView.ViewID, increment);
             }
         }
     }
@@ -198,7 +197,7 @@ public class DragAndDrop : MonoBehaviourPun
     /// </summary>
     public void SetValues(string name)
     {
-        photonView.RPC("ChangeValues", RpcTarget.AllBuffered, GetComponent<PhotonView>().ViewID, name);
+        photonView.RPC("ChangeValues", RpcTarget.AllBuffered, photonView.ViewID, name);
     }
     #endregion
 
@@ -209,24 +208,15 @@ public class DragAndDrop : MonoBehaviourPun
         if (photonView.ViewID == viewID)
         {
             gameObject.name = name;
-
-            foreach (var sprite in Assets.textures)
-            {
-                if (sprite.ToString() == name)
-                {
-                    GetComponentInChildren<SpriteRenderer>().sprite = sprite;
-                }
-            }
+            GetComponentInChildren<SpriteRenderer>().sprite = (Sprite)Assets.textures[name];
         }
     }
 
     [PunRPC]
-    private void ChangeScale(int viewID)
+    private void ChangeScale(int viewID, float increment)
     {
         if (photonView.ViewID == viewID)
-        {
-            float increment = (GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f;
-
+        {            
             GetComponentInChildren<SpriteRenderer>().gameObject.transform.localScale = new Vector3(grid.cellWidth / increment, grid.cellWidth / increment, 1);
             GetComponent<CircleCollider2D>().radius = (grid.cellWidth + grid.cellWidth) / 4f;
         }

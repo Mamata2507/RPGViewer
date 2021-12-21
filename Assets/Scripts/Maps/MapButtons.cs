@@ -36,8 +36,11 @@ public class MapButtons : MonoBehaviourPun
             if (this.map == map.mapPrefab)
             {
                 // Destroying old map
-                photonView.RPC("DestroyMap", RpcTarget.All);
-
+                if (GameObject.FindGameObjectWithTag("Map") != null) 
+                {
+                    GameObject.FindGameObjectWithTag("Map").GetComponentInChildren<GridManager>().GetComponent<PhotonView>().RPC("DestroyMap", RpcTarget.AllBuffered);
+                }
+                
                 // Accepting new map
                 map.AcceptMap();
 
@@ -62,18 +65,6 @@ public class MapButtons : MonoBehaviourPun
 
         // Clearing reference of selected map
         map = null;
-    }
-    #endregion
-
-    #region RPC
-    /// <summary>
-    /// Destroying current map
-    /// </summary>
-    [PunRPC]
-    private void DestroyMap()
-    {
-        // Finding and destroying curent map
-        if (GameObject.FindGameObjectWithTag("Map") != null) Destroy(GameObject.FindGameObjectWithTag("Map"));
     }
     #endregion
 }
