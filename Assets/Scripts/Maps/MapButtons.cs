@@ -38,7 +38,7 @@ public class MapButtons : MonoBehaviourPun
                 // Destroying old map
                 if (GameObject.FindGameObjectWithTag("Map") != null) 
                 {
-                    GameObject.FindGameObjectWithTag("Map").GetComponentInChildren<GridManager>().GetComponent<PhotonView>().RPC("DestroyMap", RpcTarget.AllBuffered);
+                    GameObject.FindGameObjectWithTag("Map").GetComponentInChildren<GridManager>().GetComponent<PhotonView>().RPC("DestroyMap", RpcTarget.All);
                 }
                 
                 // Accepting new map

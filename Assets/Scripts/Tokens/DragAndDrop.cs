@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using System.Collections;
+using FunkyCode;
 
 public class DragAndDrop : MonoBehaviourPun
 {
@@ -97,6 +98,7 @@ public class DragAndDrop : MonoBehaviourPun
 
         // Setting this user to be the original owner of this token
         originalOwner = photonView.Owner;
+        if (photonView.IsMine) PlayerPrefs.SetInt("PlayerID", photonView.CreatorActorNr);
 
         infoBox.SetActive(false);
     }
@@ -109,6 +111,10 @@ public class DragAndDrop : MonoBehaviourPun
             grid = FindObjectOfType<GridManager>();
             
             SetScale((GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f);
+        }
+
+        if (grid != null && GetComponentInChildren<Light2D>().size <= 0.5)
+        {
             GetComponent<LightManager>().myLight.size = grid.cellWidth * (60 / 5) + grid.cellHeight / 2;
         }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class LoadTokens : MonoBehaviour
 {
@@ -20,6 +21,23 @@ public class LoadTokens : MonoBehaviour
     #endregion
 
     #region Start & Update
+    private void Start()
+    {
+        PhotonView[] actors = FindObjectsOfType<PhotonView>();
+
+        foreach (var actor in actors)
+        {
+            string playerID = PlayerPrefs.GetInt("PlayerID").ToString();
+            string actorID = actor.ViewID.ToString().ToCharArray().GetValue(0).ToString();
+            string roomName = PlayerPrefs.GetString("RoomName");
+            if (playerID == actorID && roomName == PhotonNetwork.CurrentRoom.Name) 
+            {
+                Debug.Log("Runs");
+                actor.RequestOwnership();
+            }
+        }
+    }
+
     private void Update()
     {
         // Getting reference of grid

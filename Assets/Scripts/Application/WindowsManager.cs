@@ -1,4 +1,6 @@
 using UnityEngine;
+using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 public class WindowsManager : MonoBehaviour
 {
@@ -8,11 +10,15 @@ public class WindowsManager : MonoBehaviour
 
     // Handle windowed mode
     private bool isWindowed;
+
+    // Confirmation screen
+    [SerializeField] private GameObject confirmationScreen;
     #endregion
 
     #region Start & Update
     private void Start()
     {
+        if (Application.platform == RuntimePlatform.Android) return;
         // Setting full resolution of screen
         fullResolution = Screen.currentResolution;
 
@@ -41,7 +47,7 @@ public class WindowsManager : MonoBehaviour
     private void HandeWindow()
     {
         // Toggling fullscreen on & off by pressing F11
-        if (Input.GetKeyDown(KeyCode.F11))
+        if (Input.GetKeyDown(KeyCode.F11) && Application.platform != RuntimePlatform.Android)
         {
             switch (isWindowed)
             {
@@ -67,6 +73,29 @@ public class WindowsManager : MonoBehaviour
                 }
             }
         }
+    }
+    #endregion
+
+    #region Buttons
+    public void ExitApplication()
+    {
+        Application.Quit();
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene("Lobby");
+    }
+
+    public void ConfirmLeave()
+    {
+        confirmationScreen.SetActive(true);
+    }
+
+    public void CancelLeave()
+    {
+        confirmationScreen.SetActive(false);
     }
     #endregion
 }
