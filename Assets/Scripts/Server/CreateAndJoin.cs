@@ -89,8 +89,6 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
         // Loading game scene
         PhotonNetwork.LoadLevel("Game");
-
-        if (PlayerPrefs.GetString("RoomName") != PhotonNetwork.CurrentRoom.Name) PlayerPrefs.SetString("RoomName", PhotonNetwork.CurrentRoom.Name);
     }
     #endregion
 }

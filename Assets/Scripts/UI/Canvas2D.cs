@@ -18,7 +18,7 @@ public class Canvas2D : MonoBehaviour
         // Preventing camera controlling when dragging tokens
         if (GetComponent<DragAndDrop>() != null)
         {
-            if (GetComponent<DragAndDrop>().isPressing)
+            if (GetComponent<DragAndDrop>().isPressing && GetComponent<DragAndDrop>().photonView.IsMine)
             {
                 if (preventZoom) preventingZoom = true;
                 if (preventDrag) preventingDrag = true;

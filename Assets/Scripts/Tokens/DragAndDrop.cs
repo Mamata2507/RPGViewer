@@ -32,6 +32,7 @@ public class DragAndDrop : MonoBehaviourPun
 
     // Radius of circle collider
     private float radius;
+    public float size;
     #endregion
 
     #region Mouse Input
@@ -108,13 +109,12 @@ public class DragAndDrop : MonoBehaviourPun
         // Getting reference of the grid
         if (FindObjectOfType<GridManager>() != null)
         {
-            grid = FindObjectOfType<GridManager>();
-            
-            SetScale((GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f);
+            grid = FindObjectOfType<GridManager>();            
         }
 
         if (grid != null && GetComponentInChildren<Light2D>().size <= 0.5)
         {
+            SetScale((GetComponentInChildren<SpriteRenderer>().sprite.texture.width + GetComponentInChildren<SpriteRenderer>().sprite.texture.height) / 200f);
             GetComponent<LightManager>().myLight.size = grid.cellWidth * (60 / 5) + grid.cellHeight / 2;
         }
 
@@ -174,7 +174,7 @@ public class DragAndDrop : MonoBehaviourPun
         if (snapToGrid)
         {
             // Moving token to closest cell
-            transform.Translate(grid.GetClosestPosition(transform.position) - transform.position);
+            transform.Translate(grid.GetClosestPosition(transform.position, size) - transform.position);
         }
     }
     #endregion
@@ -187,12 +187,11 @@ public class DragAndDrop : MonoBehaviourPun
     {
         if (grid != null)
         {
-            GetComponentInChildren<SpriteRenderer>().gameObject.transform.localScale = new Vector3(grid.cellWidth / increment, grid.cellWidth / increment, 1);
+            GetComponentInChildren<SpriteRenderer>().gameObject.transform.localScale = new Vector3(grid.cellWidth / increment * (int.Parse(GetComponentInChildren<InfoManager>().sizeInput.text) / 5), grid.cellWidth / increment * (int.Parse(GetComponentInChildren<InfoManager>().sizeInput.text) / 5), 1);
 
-            if (radius != (grid.cellWidth + grid.cellWidth) / 4f)
+            if (radius != (grid.cellWidth * (int.Parse(GetComponentInChildren<InfoManager>().sizeInput.text) / 5) + grid.cellWidth * (int.Parse(GetComponentInChildren<InfoManager>().sizeInput.text) / 5)) / 4f)
             {
-                radius = (grid.cellWidth + grid.cellWidth) / 4f;
-                Debug.Log(increment);
+                radius = (grid.cellWidth * (int.Parse(GetComponentInChildren<InfoManager>().sizeInput.text) / 5) + grid.cellWidth * (int.Parse(GetComponentInChildren<InfoManager>().sizeInput.text) / 5)) / 4f;
                 photonView.RPC("ChangeScale", RpcTarget.AllBuffered, photonView.ViewID, increment);
             }
         }
@@ -223,8 +222,8 @@ public class DragAndDrop : MonoBehaviourPun
     {
         if (photonView.ViewID == viewID)
         {            
-            GetComponentInChildren<SpriteRenderer>().gameObject.transform.localScale = new Vector3(grid.cellWidth / increment, grid.cellWidth / increment, 1);
-            GetComponent<CircleCollider2D>().radius = (grid.cellWidth + grid.cellWidth) / 4f;
+            GetComponentInChildren<SpriteRenderer>().gameObject.transform.localScale = new Vector3(grid.cellWidth / increment * (int.Parse(GetComponentInChildren<InfoManager>().sizeInput.text) / 5), grid.cellWidth / increment * (int.Parse(GetComponentInChildren<InfoManager>().sizeInput.text) / 5), 1);
+            GetComponent<CircleCollider2D>().radius = (grid.cellWidth * (int.Parse(GetComponentInChildren<InfoManager>().sizeInput.text) / 5) + grid.cellWidth * (int.Parse(GetComponentInChildren<InfoManager>().sizeInput.text) / 5)) / 4f;
         }
     }
     #endregion

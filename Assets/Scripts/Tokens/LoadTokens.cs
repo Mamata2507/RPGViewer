@@ -32,10 +32,11 @@ public class LoadTokens : MonoBehaviour
             string roomName = PlayerPrefs.GetString("RoomName");
             if (playerID == actorID && roomName == PhotonNetwork.CurrentRoom.Name) 
             {
-                Debug.Log("Runs");
                 actor.RequestOwnership();
             }
         }
+
+        if (PlayerPrefs.GetString("RoomName") != PhotonNetwork.CurrentRoom.Name) PlayerPrefs.SetString("RoomName", PhotonNetwork.CurrentRoom.Name);
     }
 
     private void Update()

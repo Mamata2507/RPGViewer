@@ -90,7 +90,7 @@ public class GridManager : MonoBehaviour
     /// <summary>
     /// Returns the position of the nearest cell to the given position
     /// </summary>
-    public Vector3 GetClosestPosition(Vector3 position)
+    public Vector3 GetClosestPosition(Vector3 position, float size)
     {
         float closestPosition = 0f;
         float distanceToPlayer;
@@ -103,7 +103,8 @@ public class GridManager : MonoBehaviour
             for (float y = bottomCorner.position.y; y < topCorner.position.y; y += cellHeight)
             {
                 // Calculating the position of the nearest cell to the given position
-                distanceToPlayer = Vector2.Distance(new Vector2(x + cellWidth / 2, y + cellHeight / 2), position);
+                if (size % 10f == 0f) distanceToPlayer = Vector2.Distance(new Vector2(x, y), position);
+                else distanceToPlayer = Vector2.Distance(new Vector2(x + cellWidth / 2, y + cellHeight / 2), position);
 
                 // Setting a starting value to the closestPosition
                 if (closestPosition == 0f) closestPosition = distanceToPlayer;
@@ -115,7 +116,8 @@ public class GridManager : MonoBehaviour
                     closestPosition = distanceToPlayer;
 
                     // Setting the position of the cell to return value
-                    returnPosition = new Vector2(x + cellWidth / 2, y + cellHeight / 2);
+                    if (size % 10f == 0f) returnPosition = new Vector2(x, y);
+                    else returnPosition = new Vector2(x + cellWidth / 2, y + cellHeight / 2);
                 }
             }
         }

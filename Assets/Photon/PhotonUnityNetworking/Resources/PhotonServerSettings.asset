@@ -47,6 +47,10 @@ MonoBehaviour:
   - ChangeImage
   - ChangeScale
   - ChangeValues
+  - UpdateLabelRPC
+  - UpdateViewRPC
+  - UpdateHealthRPC
+  - UpdateSizeRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

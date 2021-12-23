@@ -88,7 +88,7 @@ public class MapHandler : MonoBehaviourPun
     public void AcceptMap()
     {
         // Instantiating this map
-        PhotonNetwork.InstantiateRoomObject(mapPrefab.name, new Vector3(0, 0, 0), Quaternion.identity);
+        PhotonNetwork.Instantiate(mapPrefab.name, new Vector3(0, 0, 0), Quaternion.identity);
     }
     #endregion
 }
