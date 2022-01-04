@@ -7,8 +7,11 @@ using System.Collections;
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
     #region Variables
-    // Header (Connecting...)
+    // Header text field
     [SerializeField] private TMP_Text header;
+
+    // Check connection state
+    private bool connected = false;
     #endregion
 
     #region Start & Update
@@ -16,9 +19,6 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     {
         // Update Header
         StartCoroutine(UpdateHeader());
-
-        // Start connecting to server
-        Connect();
     }
     #endregion
 
@@ -28,6 +28,9 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     /// </summary>
     private void Connect()
     {
+        // Prevent duplicate connections
+        connected = true;
+
         // Connect using photon settings
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -51,8 +54,24 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     /// </summary>
     private IEnumerator UpdateHeader()
     {
-        while (true)
+        while (Assets.maps.Count == 0)
         {
+            header.text = "Downloading";
+            yield return new WaitForSeconds(0.5f);
+            header.text = "Downloading.";
+            yield return new WaitForSeconds(0.5f);
+            header.text = "Downloading..";
+            yield return new WaitForSeconds(0.5f);
+            header.text = "Downloading...";
+            yield return new WaitForSeconds(0.5f);
+            StartCoroutine(UpdateHeader());
+        }
+
+        while (Assets.maps.Count >= 1)
+        {
+            // Start connecting to server
+            if (!connected) Connect();
+
             header.text = "Connecting";
             yield return new WaitForSeconds(0.5f);
             header.text = "Connecting.";
