@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RPG
 {
-    public class DownloadHandler: MonoBehaviour
+    public class CloudDownloader: MonoBehaviour
     {
         private void Start()
         {
