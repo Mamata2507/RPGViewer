@@ -11,10 +11,8 @@ GameObject:
   - component: {fileID: 1877201861751799808}
   - component: {fileID: 3124483479749792449}
   - component: {fileID: 6820493036526051987}
-  - component: {fileID: 6245688224494264324}
   - component: {fileID: 842007584474719912}
   - component: {fileID: -693969736634844641}
-  - component: {fileID: 1430651262281809937}
   m_Layer: 5
   m_Name: Sidebar Template
   m_TagString: Untagged
@@ -79,20 +77,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6245688224494264324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7638100387392610473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d811e408f7c251344ab8c282d8302533, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tokenTemplate: {fileID: 8704266109904137083, guid: 13bedc20d47c95d41ba03b0fd977658a, type: 3}
-  isDragging: 0
 --- !u!58 &842007584474719912
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -131,19 +115,3 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1430651262281809937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7638100387392610473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2549b7c8dd87c1d479069d16987d78d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  preventZoom: 1
-  preventDrag: 1
-  preventingZoom: 0
-  preventingDrag: 0

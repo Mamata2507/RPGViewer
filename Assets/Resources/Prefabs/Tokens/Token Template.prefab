@@ -682,7 +682,6 @@ GameObject:
   - component: {fileID: 4495040406009272166}
   - component: {fileID: 871475446049300072}
   - component: {fileID: 8219557614890191494}
-  - component: {fileID: 1644070825828052310}
   m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
@@ -810,7 +809,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7171094525387683524}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InfoManager, Assembly-CSharp
         m_MethodName: UpdateHealth
         m_Mode: 1
@@ -874,22 +873,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 47.5
---- !u!114 &1644070825828052310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2988735784480605251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2549b7c8dd87c1d479069d16987d78d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  preventZoom: 0
-  preventDrag: 1
-  preventingZoom: 0
-  preventingDrag: 0
 --- !u!1 &3264664500325301458
 GameObject:
   m_ObjectHideFlags: 0
@@ -902,7 +885,7 @@ GameObject:
   - component: {fileID: 5391963775130686013}
   m_Layer: 0
   m_Name: Light
-  m_TagString: Regular Light
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -995,7 +978,6 @@ GameObject:
   - component: {fileID: 7899124690332146088}
   - component: {fileID: 7487898241422831451}
   - component: {fileID: 4462971720584407470}
-  - component: {fileID: 7171094525387683524}
   - component: {fileID: 3655471475743145984}
   m_Layer: 5
   m_Name: Canvas
@@ -1085,24 +1067,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7171094525387683524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3460396619006009940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a7e28e0228b1a54899bfc1405045d4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewInput: {fileID: 2674804155376165151}
-  labelInput: {fileID: 7749657727833667930}
-  healthInput: {fileID: 871475446049300072}
-  sizeInput: {fileID: 7747381371668253197}
-  LightManager: {fileID: 143709542340168006}
-  isInteracting: 0
 --- !u!114 &3655471475743145984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1138,7 +1102,6 @@ GameObject:
   - component: {fileID: 5043514874691942386}
   - component: {fileID: 7749657727833667930}
   - component: {fileID: 8450524103055518713}
-  - component: {fileID: 1672672952666549946}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -1266,7 +1229,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7171094525387683524}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InfoManager, Assembly-CSharp
         m_MethodName: UpdateLabel
         m_Mode: 1
@@ -1340,22 +1303,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 125, y: 25}
   m_EdgeRadius: 0
---- !u!114 &1672672952666549946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3587088119411942567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2549b7c8dd87c1d479069d16987d78d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  preventZoom: 0
-  preventDrag: 1
-  preventingZoom: 0
-  preventingDrag: 0
 --- !u!1 &3643560797512903571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1917,7 +1864,6 @@ GameObject:
   - component: {fileID: 7103176918729135673}
   - component: {fileID: 7747381371668253197}
   - component: {fileID: 1963744076109375706}
-  - component: {fileID: 8960749419787109435}
   m_Layer: 5
   m_Name: Size
   m_TagString: Untagged
@@ -2045,7 +1991,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7171094525387683524}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InfoManager, Assembly-CSharp
         m_MethodName: UpdateSize
         m_Mode: 1
@@ -2109,22 +2055,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 47.5
---- !u!114 &8960749419787109435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5742368870044955641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2549b7c8dd87c1d479069d16987d78d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  preventZoom: 0
-  preventDrag: 1
-  preventingZoom: 0
-  preventingDrag: 0
 --- !u!1 &5754459331055786792
 GameObject:
   m_ObjectHideFlags: 0
@@ -2220,7 +2150,6 @@ GameObject:
   - component: {fileID: 3725791584423570946}
   - component: {fileID: 2674804155376165151}
   - component: {fileID: 567573732903647397}
-  - component: {fileID: 5515840737980972959}
   m_Layer: 5
   m_Name: View
   m_TagString: Untagged
@@ -2348,7 +2277,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7171094525387683524}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InfoManager, Assembly-CSharp
         m_MethodName: UpdateView
         m_Mode: 1
@@ -2412,22 +2341,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 47.5
---- !u!114 &5515840737980972959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5778457153855908967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2549b7c8dd87c1d479069d16987d78d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  preventZoom: 0
-  preventDrag: 1
-  preventingZoom: 0
-  preventingDrag: 0
 --- !u!1 &5844922099489854132
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,15 +2536,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8704266109904137060}
-  - component: {fileID: 8704266109904137062}
   - component: {fileID: 8704266109904137056}
-  - component: {fileID: 143709542340168006}
   - component: {fileID: 6304351033723693047}
   - component: {fileID: 2440111709392779221}
-  - component: {fileID: -8725117062226280396}
   m_Layer: 0
   m_Name: Token Template
-  m_TagString: Character
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2653,25 +2563,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8704266109904137062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8704266109904137083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31419e9b2ba64d14dbc400d0dac34a4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDragging: 0
-  isPressing: 0
-  snapToGrid: 1
-  infoBox: {fileID: 2206245592679491498}
-  transformView: {fileID: 0}
-  grid: {fileID: 0}
-  size: 0
 --- !u!114 &8704266109904137056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2695,19 +2586,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &143709542340168006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8704266109904137083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 644fcf559f7e429479002f52a34f654e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myLight: {fileID: 5391963775130686013}
 --- !u!114 &6304351033723693047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2757,22 +2635,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &-8725117062226280396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8704266109904137083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2549b7c8dd87c1d479069d16987d78d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  preventZoom: 0
-  preventDrag: 1
-  preventingZoom: 0
-  preventingDrag: 0
 --- !u!1 &9193514861747885689
 GameObject:
   m_ObjectHideFlags: 0
@@ -2785,7 +2647,7 @@ GameObject:
   - component: {fileID: 8243016785472419388}
   m_Layer: 0
   m_Name: FOW Light
-  m_TagString: FOW Light
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
