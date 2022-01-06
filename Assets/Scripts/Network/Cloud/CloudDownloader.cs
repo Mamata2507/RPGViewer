@@ -1,5 +1,6 @@
 using Photon.Pun;
 using UnityEngine;
+using System.IO;
 
 namespace RPG
 {
@@ -53,8 +54,14 @@ namespace RPG
         private void GetMapNames()
         {
             string url = "";
-            if (Application.platform == RuntimePlatform.Android) url = "https://storage.googleapis.com/rpgviewer/AssetBundles/Android/maps";
-            else if (Application.platform == RuntimePlatform.WindowsEditor) url = "https://storage.googleapis.com/rpgviewer/AssetBundles/Windows/maps";
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                url = "https://storage.googleapis.com/rpgviewer/AssetBundles/Android/maps";
+            }
+            else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
+            {
+                url = "https://storage.googleapis.com/rpgviewer/AssetBundles/Windows/maps";
+            }
 
             WebRequest.GetBundle(url, (string error) => { Debug.Log("Error: " + error); }, (Object[] maps) =>
             {

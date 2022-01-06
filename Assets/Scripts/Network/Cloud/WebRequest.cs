@@ -42,6 +42,8 @@ namespace RPG
             {
                 yield return unityWebRequest.SendWebRequest();
 
+                Debug.Log(unityWebRequest.downloadProgress);
+
                 if (unityWebRequest.result != UnityWebRequest.Result.Success) onError(unityWebRequest.error);
                 else
                 {
