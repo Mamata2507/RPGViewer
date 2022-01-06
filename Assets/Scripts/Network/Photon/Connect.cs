@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using TMPro;
@@ -9,8 +10,10 @@ namespace RPG
     public class Connect : MonoBehaviourPunCallbacks
     {
         [SerializeField] private TMP_Text header;
+        [SerializeField] private GameObject bar;
+        [SerializeField] private Image barFill;
 
-        private string[] dots = new string[3];
+        private string[] dots = new string[4];
         
         private bool connected = false;
 
@@ -20,14 +23,20 @@ namespace RPG
             StartCoroutine(UpdateHeader());
         }
 
+        private void Update()
+        {
+            barFill.fillAmount = WebRequest.downloadProgress;
+        }
+
         /// <summary>
         /// Initiating header updates
         /// </summary>
         private void Initiation()
         {
-            dots[0] = ".";
-            dots[1] = "..";
-            dots[2] = "...";
+            dots[0] = "";
+            dots[1] = ".";
+            dots[2] = "..";
+            dots[3] = "...";
         }
 
         /// <summary>
@@ -54,24 +63,22 @@ namespace RPG
         /// </summary>
         private IEnumerator UpdateHeader()
         {
-            while (Assets.maps.Count == 0)
+            while (!connected)
             {
-                for (int i = 0; i < 4; i++)
+                if (Assets.maps.Count == 0)
                 {
-                    header.text = "Downloading" + dots[i];
-                    yield return new WaitForSeconds(0.5f);
+                    bar.SetActive(true);
+                    for (int i = 0; i < 4; i++) header.text = "Downloading" + dots[i];
                 }
-            }
 
-            while (Assets.maps.Count >= 1)
-            {
-                if (!connected) ConnectClient();
-
-                for (int i = 0; i < 4; i++)
+                else if (Assets.maps.Count >= 1)
                 {
-                    header.text = "Connecting" + dots[i];
-                    yield return new WaitForSeconds(0.5f);
+                    bar.SetActive(false);
+                    ConnectClient();
+
+                    for (int i = 0; i < 4; i++) header.text = "Connecting" + dots[i];
                 }
+                yield return new WaitForSeconds(0.5f);
             }
         }
     }

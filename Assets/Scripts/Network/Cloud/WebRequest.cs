@@ -7,6 +7,8 @@ namespace RPG
 {
     public static class WebRequest
     {
+        public static float downloadProgress;
+
         private class WebRequestMonoBehaviour : MonoBehaviour { }
         private static WebRequestMonoBehaviour webRequestMonoBehaviour;
 
@@ -40,9 +42,9 @@ namespace RPG
             Initiate();
             using (UnityWebRequest unityWebRequest = UnityWebRequestAssetBundle.GetAssetBundle(url))
             {
-                yield return unityWebRequest.SendWebRequest();
+                webRequestMonoBehaviour.StartCoroutine(DisplayProgress(unityWebRequest));
 
-                Debug.Log(unityWebRequest.downloadProgress);
+                yield return unityWebRequest.SendWebRequest();
 
                 if (unityWebRequest.result != UnityWebRequest.Result.Success) onError(unityWebRequest.error);
                 else
@@ -106,6 +108,16 @@ namespace RPG
                 if (unityWebRequest.result == UnityWebRequest.Result.ConnectionError || unityWebRequest.result == UnityWebRequest.Result.ProtocolError) onError(unityWebRequest.error);
                 else onSuccess(unityWebRequest.downloadHandler.text);
             }
+        }
+
+        private static IEnumerator DisplayProgress(UnityWebRequest? webRequest = null)
+        {
+            while (!webRequest.isDone)
+            {
+                downloadProgress = webRequest.downloadProgress;
+                yield return null;
+            }
+            webRequestMonoBehaviour.StopCoroutine(DisplayProgress());
         }
     }
 }

@@ -17,12 +17,12 @@ namespace RPG
 
         public void CreateRoom()
         {
-            StartCoroutine(CreateRoomCoroutine());
+            if (!PhotonNetwork.InRoom) StartCoroutine(CreateRoomCoroutine());
         }
 
         public void JoinRoom()
         {
-            StartCoroutine(JoinRoomCoroutine());
+            if (!PhotonNetwork.InRoom) StartCoroutine(JoinRoomCoroutine());
         }
 
         /// <summary>
