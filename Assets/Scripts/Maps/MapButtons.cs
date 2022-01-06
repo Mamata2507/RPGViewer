@@ -1,70 +1,63 @@
 using UnityEngine;
 using Photon.Pun;
 
-public class MapButtons : MonoBehaviourPun
+namespace RPG
 {
-    #region Variables
-    // Currently selected map
-    public GameObject map;
-
-    // Accept and Cancel buttons
-    public GameObject acceptButton;
-    public GameObject cancelButton;
-    #endregion
-
-    #region Start & Update
-    private void Start()
+    public class MapButtons : MonoBehaviourPun
     {
-        // Hiding buttons
-        acceptButton.SetActive(false);
-        cancelButton.SetActive(false);
-    }
-    #endregion
+        #region Variables
+        // Currently selected map
+        public GameObject map;
 
-    #region Buttons
-    /// <summary>
-    /// Accepting currently selected map (called when pressing Accept-button)
-    /// </summary>
-    /// 
-    public void AcceptMap()
-    {
-        // Getting reference of each map
-        MapHandler[] maps = GetComponentsInChildren<MapHandler>();
+        // Accept and Cancel buttons
+        public GameObject acceptButton;
+        public GameObject exitButton;
+        #endregion
 
-        foreach (var map in maps)
+        #region Start & Update
+        private void Update()
         {
-            if (this.map == map.mapPrefab)
-            {
-                // Destroying old map
-                if (GameObject.FindGameObjectWithTag("Map") != null) 
-                {
-                    GameObject.FindGameObjectWithTag("Map").GetComponentInChildren<GridManager>().GetComponent<PhotonView>().RPC("DestroyMap", RpcTarget.All);
-                }
-                
-                // Accepting new map
-                map.AcceptMap();
-
-                // Clearing reference of selected map
-                this.map = null;
-            }
-
-            // Hiding buttons
-            acceptButton.SetActive(false);
-            cancelButton.SetActive(false);
+            if (map != null && acceptButton.activeInHierarchy == false) acceptButton.SetActive(true);
         }
-    }
+        #endregion
 
-    /// <summary>
-    /// Cancelling currently selected map (called when pressing Cancel-button)
-    /// </summary>
-    public void CancelMap()
-    {
-        // Hiding buttons
-        acceptButton.SetActive(false);
-        cancelButton.SetActive(false);
+        #region Buttons
+        /// <summary>
+        /// Accepting currently selected map (called when pressing Accept-button)
+        /// </summary>
+        /// 
+        public void AcceptMap()
+        {
+            // Getting reference of each map
+            MapHandler[] maps = GetComponentsInChildren<MapHandler>();
 
-        // Clearing reference of selected map
-        map = null;
+            foreach (var map in maps)
+            {
+                if (this.map == map.mapPrefab)
+                {
+                    // Destroying old map
+                    if (GameObject.FindGameObjectWithTag("Map") != null) GameObject.FindGameObjectWithTag("Map").GetComponentInChildren<GridManager>().GetComponent<PhotonView>().RPC("DestroyMap", RpcTarget.All);
+
+                    // Accepting new map
+                    map.AcceptMap();
+
+                    // Clearing reference of selected map
+                    this.map = null;
+                    
+                    gameObject.SetActive(false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Cancelling currently selected map (called when pressing Cancel-button)
+        /// </summary>
+        public void CloseWindow()
+        {
+            // Clearing reference of selected map
+            map = null;
+            gameObject.SetActive(false);
+        }
+        #endregion
     }
-    #endregion
 }

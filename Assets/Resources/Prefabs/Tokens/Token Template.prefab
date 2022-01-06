@@ -941,14 +941,14 @@ MonoBehaviour:
   occlusionLayer: 0
   translucentLayer: 0
   translucentPresetId: 0
-  color: {r: 1, g: 1, b: 1, a: 0.5}
+  color: {r: 1, g: 1, b: 1, a: 1}
   size: 0.1
   spotAngleInner: 360
   spotAngleOuter: 360
   coreSize: 0.5
   falloff: 0
   lightStrength: 0.5
-  outerAngle: 60
+  outerAngle: 30
   lightRadius: 1
   shadowDistanceClose: 0
   shadowDistanceFar: 5
@@ -2830,7 +2830,7 @@ MonoBehaviour:
   coreSize: 0.5
   falloff: 0
   lightStrength: 0
-  outerAngle: 15
+  outerAngle: 30
   lightRadius: 1
   shadowDistanceClose: 0
   shadowDistanceFar: 5

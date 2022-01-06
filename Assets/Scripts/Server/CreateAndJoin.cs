@@ -4,91 +4,98 @@ using UnityEngine;
 using Photon.Realtime;
 using System.Collections;
 
-public class CreateAndJoin : MonoBehaviourPunCallbacks
+namespace RPG
 {
-    #region Variables
-    // Input fields to store names
-    [SerializeField] private TMP_InputField createInput;
-    [SerializeField] private TMP_InputField joinInput;
-    [SerializeField] private TMP_InputField nickname;
-    #endregion
-
-    #region Room Name
-    private string RandomName()
+    public class CreateAndJoin : MonoBehaviourPunCallbacks
     {
-        string name = "";
+        #region Variables
+        // Player name
+        public TMP_InputField nickname;
+        #endregion
 
-        for (int i = 1; i <= 4; ++i)
+        #region Room Name
+        private string RandomName()
         {
-            bool upperCase = Random.Range(0, 2) == 1;
+            string name = "";
 
-            int rand = 0;
-            if (upperCase)
+            for (int i = 1; i <= 5; ++i)
             {
-                rand = Random.Range(65, 91);
+                bool upperCase = Random.Range(0, 2) == 1;
+
+                int rand = 0;
+
+                if (upperCase) rand = Random.Range(65, 91);
+                else rand = Random.Range(97, 123);
+
+                name += (char)rand;
             }
-            else
+            return name;
+        }
+        #endregion
+
+        #region Start & Update
+        private void Start()
+        {
+            Instantiation.Instantiate();
+        }
+        #endregion
+
+        #region Buttons
+        public void CreateRoom()
+        {
+            StartCoroutine(CreateRoomCoroutine());
+        }
+
+        public void JoinRoom()
+        {
+            StartCoroutine(JoinRoomCoroutine());
+        }
+        #endregion
+
+        #region Coroutines
+        private IEnumerator CreateRoomCoroutine()
+        {
+            // Modifying room options
+            RoomOptions options = new RoomOptions();
+            options.CleanupCacheOnLeave = false;
+
+            // Creating room with random generated name
+            string name = RandomName();
+
+            while (true)
             {
-                rand = Random.Range(97, 123);
+                if (nickname.text.ToCharArray().Length == 0) yield return null;
+                else yield return PhotonNetwork.CreateRoom(name, options);
+
+                StopAllCoroutines();
+            }
+        }
+
+        private IEnumerator JoinRoomCoroutine()
+        {
+            while (true)
+            {
+                if (nickname.text.ToCharArray().Length == 0) yield return null;
+                else yield return PhotonNetwork.JoinRandomRoom();
+
+                StopAllCoroutines();
+            }
+        }
+        #endregion
+
+        #region Connection
+        public override void OnJoinedRoom()
+        {
+            // Setting custom nickname
+            if (nickname.text.ToCharArray().Length != 0)
+            {
+                PhotonNetwork.NickName = nickname.text;
+                PlayerPrefs.SetString("Nickname", nickname.text);
             }
 
-            name += (char)rand;
+            // Loading game scene
+            PhotonNetwork.LoadLevel("Game");
         }
-        return name;
+        #endregion
     }
-    #endregion
-
-    #region Buttons
-    public void CreateRoom()
-    {
-        StartCoroutine(CreateRoomCoroutine());
-    }
-
-    public void JoinRoom()
-    {
-        StartCoroutine(JoinRoomCoroutine());
-    }
-    #endregion
-
-    #region Coroutines
-    private IEnumerator CreateRoomCoroutine()
-    {
-        // Modifying room options
-        RoomOptions options = new RoomOptions();
-        options.CleanupCacheOnLeave = false;
-
-        // Creating room with random generated name
-        string name = RandomName();
-
-        while (true)
-        {
-            if (Assets.maps.Count == 0) yield return null;
-
-            yield return PhotonNetwork.CreateRoom(name, options);
-            StopAllCoroutines();
-        } 
-    }
-
-    private IEnumerator JoinRoomCoroutine()
-    {
-        while (true)
-        {
-            if (Assets.maps.Count == 0) yield return null;
-
-            yield return PhotonNetwork.JoinRandomRoom();
-            StopAllCoroutines();
-        }
-    }
-    #endregion
-
-    #region Connection
-    public override void OnJoinedRoom()
-    {
-        // Settin custom nickname
-        PhotonNetwork.NickName = nickname.text;
-
-        // Loading game scene
-        PhotonNetwork.LoadLevel("Game");
-    }
-    #endregion
 }
