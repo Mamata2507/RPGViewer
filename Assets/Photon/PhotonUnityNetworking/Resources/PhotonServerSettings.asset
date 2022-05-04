@@ -19,7 +19,7 @@ MonoBehaviour:
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: 
+    FixedRegion: ru
     Server: 
     Port: 0
     ProxyServer: 
@@ -36,10 +36,36 @@ MonoBehaviour:
   RpcList:
   - ClickRpc
   - DestroyRpc
+  - GenerateMap
+  - HideLights
+  - DestroyMap
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
-  - UpdateLighting
+  - SetScale
+  - ChangeName
+  - ChangeImage
+  - ChangeScale
+  - ChangeValues
+  - UpdateLabelRPC
+  - UpdateViewRPC
+  - UpdateHealthRPC
+  - UpdateSizeRPC
+  - UpdateLabel
+  - UpdateLight
+  - UpdateSize
+  - UpdateConditions
+  - LoadImage
+  - LoadConfiguration
+  - CreateTokenData
+  - UpdateData
+  - UpdateScene
+  - Delete
+  - InstantiateGrid
+  - SetActve
+  - SetActive
+  - HideToken
+  - ShowToken
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 1

@@ -4,9 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Character
-  - Map
-  - Light
+  - Network
+  - Token
+  - Regular Light
+  - FOW Light
+  - Grid
+  - Main Canvas
   layers:
   - Default
   - TransparentFX
@@ -14,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Lights
   - 
   - 
   - 
@@ -47,12 +50,12 @@ TagManager:
   - name: Environment
     uniqueID: 2108834291
     locked: 0
-  - name: Character
+  - name: Tokens
     uniqueID: 1340459273
+    locked: 0
+  - name: Lighting
+    uniqueID: 2952191515
     locked: 0
   - name: UI
     uniqueID: 60004829
-    locked: 0
-  - name: Top
-    uniqueID: 911530517
     locked: 0
